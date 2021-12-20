@@ -7,6 +7,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
+	@GetMapping("/")
+	public String noDirectory(Model model) {
+		model.addAttribute("name", "World");
+		return "home";
+	}
+	
 	/**
 	 * 
 	 * @param name = query paramater
