@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>This is the home page</title>
-	<div th:include="fragments/header :: headerJSFiles"></div>
+<head th:insert="fragments/header :: defaultHead">
 </head>
 <body>
-	<!--  -->
 	<p th:text="'Hello, ' + ${name} + '!'"/>
 </body>
 </html>
