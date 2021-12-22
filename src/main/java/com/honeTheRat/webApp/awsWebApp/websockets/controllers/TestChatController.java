@@ -18,13 +18,14 @@ import com.honeTheRat.webApp.awsWebApp.websockets.pojos.BasicMessage;
 @Controller
 public class TestChatController {
 	private Logger log = LoggerFactory.getLogger(getClass());
-	
 	//TODO : Is there a potential memory leak when a user changes rooms but does so in a way to bypass our stompClient.disconnect() call in js? 
 	//While testing using our /admin/socketConnections endpoint, it will say there are more users connected as someone has multiple connections open
 	@MessageMapping("/{room}")
 	@SendTo("/topic/{room}")
 	public BasicMessage sendAndReceive(BasicMessage m, @DestinationVariable String room) throws Exception{
-		Thread.sleep(1000); //pause for a bit for testing? just see what a delay does
+		log.info("Received message to room: {}", room);
+		//TODO: Is there a way for us to verify that their room fits a certain pattern? ie only allow alpha numeric or something? 
+		Thread.sleep(500); 
 		return m;
 	}
 	

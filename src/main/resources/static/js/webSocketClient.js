@@ -29,6 +29,8 @@ function connect(room){
 	}
 	var socket = new SockJS('/gs-guide-websocket'); //thing defined in controller for SockJS
 	stompClient = Stomp.over(socket); //will this auto disconnect from current socket? 
+	
+	//TODO Verify this room matches a certain regex (alphanumeric?) also need to verify on server then because they could just skip the check here
 	if(room){
 		url = "/topic/" + room;
 		finalRoom = room;
