@@ -42,6 +42,7 @@ function subscribeTo(room){
 	for(s of subscriptions){
 		//currently unsubscribing to each room, but still lives in array we have
 		//will probably allow them to subscribe to multiple at the same time in the future
+		console.log("Subscription we are closing: " + JSON.stringify(s));
 		s.unsubscribe();
 	}
 	
