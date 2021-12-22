@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class JSONTest {
-	Logger log = LoggerFactory.getLogger(JSONTest.class);
+	private Logger log = LoggerFactory.getLogger(JSONTest.class);
 	@GetMapping("/jsontest")
 	public String getBasicJson(Model model) {
 		List<Integer> list = Arrays.asList(1,2,3,4);
