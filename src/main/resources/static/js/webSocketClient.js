@@ -1,11 +1,13 @@
 /**
  * 
  */
+//TODO: should this client be reused and we just unsubscribe/resubscribe to things? rather than disconnecting the client every time they switch rooms?
 var stompClient = null; //make this private somehow? Only accessible via our functions? 
 var finalRoom = "";
+var subscriptions = []; //all stomp subscriptions
 $(document).ready(function(){
 	//start in random room
-	var roomId = Math.random().toString(); //testing with having multiple rooms (random num means every user is in their own room most likely)
+	var roomId = Math.floor(Math.random() * 100).toString(); //testing with having multiple rooms (random num means every user is in their own room most likely)
 	connect(roomId);
 	
 	//form is being submitted or something with button, disable it
@@ -17,20 +19,32 @@ $(document).ready(function(){
 		sendMessage();
 	});
 	
-	$("#connect").click(function(){
-		connect();
+	$("#subscribe").click(function(){
+		subscribeTo();
 	});
 });
 
 function connect(room){
-	//TODO : Is there a potential memory leak when a user changes rooms but does so in a way to bypass our stompClient.disconnect() call in js? 
 	if(stompClient){
-		stompClient.disconnect();//disconnect from any prior connections
+		stompClient.disconnect();//disconnect client from server if it already exists
 	}
 	var socket = new SockJS('/gs-guide-websocket'); //thing defined in controller for SockJS
 	stompClient = Stomp.over(socket); //will this auto disconnect from current socket? 
 	
-	//TODO Verify this room matches a certain regex (alphanumeric?) also need to verify on server then because they could just skip the check here
+	//TODO add an "onError" and "onClose" for client
+	stompClient.connect({}, function(frame){
+		console.log("Connect frame: " + frame);
+		subscribeTo(room);
+	});
+}
+
+function subscribeTo(room){
+	for(s of subscriptions){
+		//currently unsubscribing to each room, but still lives in array we have
+		//will probably allow them to subscribe to multiple at the same time in the future
+		s.unsubscribe();
+	}
+	
 	if(room){
 		url = "/topic/" + room;
 		finalRoom = room;
@@ -41,16 +55,15 @@ function connect(room){
 		finalRoom = userRoom;
 	}
 	
-	stompClient.connect({}, function(frame){
-		stompClient.subscribe(url, function(reply){
-			handleMessage(JSON.parse(reply.body).userName + ": " + JSON.parse(reply.body).message);
-		});
-		console.log("Connected to webSocket?? " + frame);
+	var newSub = stompClient.subscribe(url, function(reply){
+		handleMessage(JSON.parse(reply.body).userName + ": " + JSON.parse(reply.body).message);
 	});
+	
+	subscriptions.push(newSub);
 }
-
+//TODO, allow passing in a div that we can "print" to. If it doesn't exist, make one first then append to it
 function handleMessage(serverMessage){
-	$("#messageBox").append(`<br/>${serverMessage }`);
+	$("#messageBox").append(`<br/>${serverMessage}`);
 }
 
 function sendMessage(){
@@ -61,4 +74,3 @@ function sendMessage(){
 	//we need to prepend /app so it looks for our annotated server method? 
 	stompClient.send("/app/" + finalRoom, {}, JSON.stringify(messageObject));
 }
-//TODO any disconnecting need to happen? see above TODO for memory leak stuff 
