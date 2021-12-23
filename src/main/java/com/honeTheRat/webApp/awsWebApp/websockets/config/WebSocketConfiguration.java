@@ -3,6 +3,7 @@ package com.honeTheRat.webApp.awsWebApp.websockets.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
@@ -30,5 +31,9 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
 		.setHandshakeHandler(new CustomHandshakeHandler())
 		.withSockJS();
 		log.info("Finished setting up StompEndpointRegistry");
+	}
+	@Override
+	public void configureClientInboundChannel(ChannelRegistration registration) {
+		registration.interceptors(new CustomInterceptor());
 	}
 }

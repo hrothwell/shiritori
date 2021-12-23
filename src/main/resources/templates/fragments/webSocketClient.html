@@ -3,19 +3,16 @@
 <head>
 </head>
 <body>
-	<div th:fragment="webSocketClient">
+	<div id="webSocketMessages" th:fragment="webSocketClient">
 		<form>
 			<!-- TODO Let the user define their own chat room name to connect to -->
-			<label for="room">Room Name</label>
+			<label for="room">Room Name: </label>
 			<input type="text" id="room"/>
-			<button id="connect">Connect</button>
+			<button id="subscribe">Subscribe</button>
 			<br/>
-			<label for="name">Name</label>
+			<label for="name">Name: </label>
 			<input type="text" id="name"/>
 			<br/>
-			<label for="message">Message</label>
-			<input type="text" id="message"/>
-			<button id="send">Send Message</button>
 		</form>
 		
 		<div id="messageBox">Messages will show up down here : </div>
