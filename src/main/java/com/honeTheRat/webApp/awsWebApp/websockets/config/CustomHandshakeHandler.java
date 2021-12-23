@@ -28,13 +28,12 @@ public class CustomHandshakeHandler extends DefaultHandshakeHandler {
 	        //apparently not, but it will still connect to another websocket? 
 	        log.info("request remote address: {}", request.getRemoteAddress());
 	        
-	        String uniqueName = "haiden";
+	        String uniqueName = request.getRemoteAddress().getAddress().toString();
 	        
 	        ((AnonymousUserPrincipal) principal).setName(uniqueName);
 	    }
 	
 	    return principal;
-	
 	}
 
 }
