@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:fragment="createGame">
+		<label for="createGameName">Game room name: </label>
+		<input type="text" id="createGameName"/>
+		<label for="createGamePassword">Game room password: </label>
+		<input type="text" id="createGamePassword"/>
+		<button id="createGameButton">Create</button>
+	</div>
+
+</body>
+</html>

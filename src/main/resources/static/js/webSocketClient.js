@@ -1,4 +1,4 @@
-/**
+/** TODO rename file to be more specific to the chat boxes
  * 
  */
 //TODO: should this client be reused and we just unsubscribe/resubscribe to things? rather than disconnecting the client every time they switch rooms?
@@ -108,6 +108,7 @@ function handleMessage(serverMessage, messageBoxId){
 		$(`#${messageBoxId}`).before(`<span>${timeStamp} - ${serverMessage}</span><br/>`);
 	}
 	else{
+		//TODO don't alert them
 		alert("Something didn't work, how did you get here...");
 	}
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: defaultHead">
+</head>
+<body>
+	<div id="shiritori" th:fragment="shiritori">
+		<!-- Header with game room name -->
+		<h1 th:text="${game.gameName}"></h1>
+		<!--  list of players? then how to update if someone new joins? updates when game started? -->
+		<!-- box of messages -->
+		<div id="shiritoriGameMessages" style="border-style: double;">
+			<input id="userMessageBox" type="text"/>
+		</div>
+	</div>
+	<!-- disconnect button? home button? something to get back -->
+</body>
+</html>

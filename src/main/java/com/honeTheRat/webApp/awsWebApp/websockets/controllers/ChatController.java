@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,11 @@ import com.honeTheRat.webApp.awsWebApp.websockets.pojos.BasicMessage;
 @Controller
 public class ChatController {
 	private Logger log = LoggerFactory.getLogger(getClass());
+	
+	//Not currently used but can be, has helpful methods
+	@Autowired
+	private SimpMessagingTemplate simpMessagingTemplate;
+	
 	//TODO : Is there a potential memory leak when a user changes rooms but does so in a way to bypass our stompClient.disconnect() call in js? 
 	//While testing using our /admin/socketConnections endpoint, it will say there are more users connected as someone has multiple connections open
 	@MessageMapping("/{room}")
