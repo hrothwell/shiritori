@@ -1,6 +1,6 @@
 package com.honeTheRat.webApp.awsWebApp.websockets.shiritori.logic;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import com.honeTheRat.webApp.awsWebApp.websockets.shiritori.pojos.ShiritoriMessa
 public class ShiritoriGameLogic {
 
 	@Autowired
-	private HashMap<String, ShiritoriGame> shiritoriGames;
+	private Map<String, ShiritoriGame> shiritoriGames;
 	
 	//TODO validate that the game exists? 
 	public String validateWord(ShiritoriMessage gameMessage) {

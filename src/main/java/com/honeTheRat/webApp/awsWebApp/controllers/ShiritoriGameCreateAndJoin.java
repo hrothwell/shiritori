@@ -1,6 +1,6 @@
 package com.honeTheRat.webApp.awsWebApp.controllers;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ import com.honeTheRat.webApp.awsWebApp.websockets.shiritori.pojos.ShiritoriGame;
 public class ShiritoriGameCreateAndJoin {
 	
 	@Autowired
-	private HashMap<String, ShiritoriGame> shiritoriGames;
+	private Map<String, ShiritoriGame> shiritoriGames;
 	//TODO set content type? 
 	@PostMapping("/shiritori/createGame")
 	public String createShiritoriGame(@RequestBody CreateAndJoinGameBody body, Model model) {

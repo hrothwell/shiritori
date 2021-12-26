@@ -1,6 +1,6 @@
 package com.honeTheRat.webApp.awsWebApp.websockets.config;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
@@ -24,7 +24,7 @@ public class WebSocketEventListener {
 	private SimpMessagingTemplate template;
 	
 	@Autowired
-	private HashMap<String, ShiritoriGame> shiritoriGames;
+	private Map<String, ShiritoriGame> shiritoriGames;
 	
 	@EventListener
 	public void handleSubscribeEvent(SessionSubscribeEvent event) {
