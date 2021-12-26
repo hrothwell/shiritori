@@ -1,8 +1,15 @@
 package com.honeTheRat.webApp.awsWebApp.controllers;
 
+import java.util.Date;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.StringUtils;
 
+import com.honeTheRat.webApp.awsWebApp.enums.AdminConstants;
+import com.honeTheRat.webApp.awsWebApp.websockets.pojos.BasicMessage;
 import com.honeTheRat.webApp.awsWebApp.websockets.shiritori.pojos.CreateAndJoinGameBody;
 import com.honeTheRat.webApp.awsWebApp.websockets.shiritori.pojos.ShiritoriGame;
 
@@ -22,13 +31,14 @@ import com.honeTheRat.webApp.awsWebApp.websockets.shiritori.pojos.ShiritoriGame;
  */
 @Controller
 public class ShiritoriGameCreateAndJoin {
-	
+	private Logger log = LoggerFactory.getLogger(getClass());
+	@Autowired
+	private SimpMessagingTemplate template;
 	@Autowired
 	private Map<String, ShiritoriGame> shiritoriGames;
 	//TODO set content type? 
 	@PostMapping("/shiritori/createGame")
 	public String createShiritoriGame(@RequestBody CreateAndJoinGameBody body, Model model) {
-		//TODO create a new game with name, add password or not
 		//make game object, pass into view
 		if(shiritoriGames.get(body.getGameName()) == null) {
 			//make game, attach to model
@@ -36,11 +46,14 @@ public class ShiritoriGameCreateAndJoin {
 			newGame.setGameName(body.getGameName());
 			//TODO if it is null will that affect joining? 
 			newGame.setGamePassword(StringUtils.trim(body.getPassword()));
+			newGame.setTimeLastActive(new Date()); //game started = active
 			newGame.getPlayers().add("TODO");
+			shiritoriGames.put(newGame.getGameName(), newGame);
 			model.addAttribute("game", newGame);
 		}
 		else {
 			//game already exists
+			model.addAttribute("game", shiritoriGames.get(body.getGameName()));//just connect to existing game for now
 		}
 		//returns just a fragment, kinda cool
 		return "shiritori.html :: shiritori"; 
@@ -61,6 +74,31 @@ public class ShiritoriGameCreateAndJoin {
 		else {
 			throw new RuntimeException("Incorrect password or game does not exist!");
 		}
+	}
+	
+	//manages removing inactive games
+	//run every five minutes 
+	@Scheduled(fixedRate = 300000)
+	public void cleanUpGames() {
+		log.info("checking for inactive games");
+        Iterator<Map.Entry<String, ShiritoriGame>> itr = shiritoriGames.entrySet().iterator();
+         
+        while(itr.hasNext()){
+             Map.Entry<String, ShiritoriGame> entry = itr.next();
+             log.info("checking game {} for inactivity", entry.getKey());
+             Date now = new Date();
+             long elapsedTime = now.getTime() - entry.getValue().getTimeLastActive().getTime();
+             
+             if(TimeUnit.MILLISECONDS.toMinutes(elapsedTime) > 5) {
+            	 log.info("Inactive game found: {}", entry.getKey());
+            	 itr.remove();
+            	 template.convertAndSend("/topic/shiritori/" + entry.getKey(), new BasicMessage(AdminConstants.UserName.name(), "Closing game due to inactivity"));
+             }
+             else {
+            	 log.info("Game: {} - Active", entry.getKey());
+             }
+        }
+		
 	}
 	
 }

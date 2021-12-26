@@ -26,9 +26,9 @@ public class ShiritoriController {
 	
 	@MessageMapping("/shiritori/{room}")
 	@SendTo("/topic/shiritori/{room}")
-	public BasicMessage sendAndReceive(ShiritoriMessage m, @DestinationVariable String room) throws Exception{
+	public BasicMessage sendAndReceiveShiritori(ShiritoriMessage m, @DestinationVariable String room) throws Exception{
 		simpMessagingTemplate.convertAndSend("/topic/shiritori/" + room, m);//send the current user's message to show up for everyone
-		String validWord = shiritoriGameLogic.validateWord(m);
+		String validWord = shiritoriGameLogic.validateWord(m, room);
 		
 		BasicMessage reply = new BasicMessage(AdminConstants.UserName.getValue(), validWord);
 		

@@ -7,7 +7,9 @@ import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import org.springframework.web.socket.messaging.SessionSubscribeEvent;
+import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 
 import com.honeTheRat.webApp.awsWebApp.enums.AdminConstants;
 import com.honeTheRat.webApp.awsWebApp.websockets.pojos.BasicMessage;
@@ -36,5 +38,15 @@ public class WebSocketEventListener {
 			BasicMessage m = new BasicMessage(AdminConstants.UserName.getValue(), AdminConstants.NewUserJoin.getValue());
 			template.convertAndSend(simpDestination, m);
 		}
+	}
+	
+	@EventListener
+	public void handleUnsubscribeEvent(SessionUnsubscribeEvent event) {
+		//TODO send out message
+	}
+	
+	@EventListener
+	public void handleDisconnectEvent(SessionDisconnectEvent event) {
+		//TODO send out message
 	}
 }

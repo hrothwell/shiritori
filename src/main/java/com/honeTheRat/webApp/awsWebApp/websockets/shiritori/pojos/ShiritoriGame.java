@@ -1,21 +1,24 @@
 package com.honeTheRat.webApp.awsWebApp.websockets.shiritori.pojos;
 
+import java.util.Date;
 import java.util.HashSet;
 
 public class ShiritoriGame {
 	private String gameName; //name of the "room" they are in. Should this be some sort of hash? The key for the map this lives in will probably also be the gameName
 	private String gamePassword; //password to enter the game? 
 	private HashSet<String> seenWords;
-	//players?
 	private HashSet<String> players; //dunno if this is really needed tbh
 	private String lastKnownWord; //last word that was played
 	private String lastKnownPlayer; //See who last played a VALID word. what to store here? name? IP? 
 	private boolean gameStarted; //if the game is currently ongoing
+	private Date timeLastActive;
 	
 	public ShiritoriGame() {
 		this.setGameStarted(false);
 		this.setPlayers(new HashSet<>());
 		this.setSeenWords(new HashSet<>());
+		this.setLastKnownPlayer("?");
+		this.setLastKnownWord("?");
 	}
 	public String getGameName() {
 		return gameName;
@@ -58,6 +61,12 @@ public class ShiritoriGame {
 	}
 	public void setGameStarted(boolean gameStarted) {
 		this.gameStarted = gameStarted;
+	}
+	public Date getTimeLastActive() {
+		return timeLastActive;
+	}
+	public void setTimeLastActive(Date timeLastActive) {
+		this.timeLastActive = timeLastActive;
 	}
 	
 }
