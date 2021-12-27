@@ -2,7 +2,7 @@ package com.honeTheRat.webApp.awsWebApp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+//TODO add error handlers
 @SpringBootApplication
 public class AwsWebAppApplication {
 

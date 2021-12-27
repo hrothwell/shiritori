@@ -26,6 +26,8 @@ import com.honeTheRat.webApp.awsWebApp.websockets.shiritori.pojos.ShiritoriGame;
 
 /**
  * Controller for creating/joining a Shiritori
+ * TODO: would probably be better to manage users via sessions/ip address/something. Right now we trust them to send a "name" on each message for the game
+ * and we use that to identify the player during gameplay
  * @author hrothwell
  *
  */
@@ -49,11 +51,13 @@ public class ShiritoriGameCreateAndJoin {
 			newGame.setTimeLastActive(new Date()); //game started = active
 			newGame.getPlayers().add("TODO");
 			shiritoriGames.put(newGame.getGameName(), newGame);
+			model.addAttribute("pageTitle", newGame.getGameName());
 			model.addAttribute("game", newGame);
 		}
 		else {
 			//game already exists
 			model.addAttribute("game", shiritoriGames.get(body.getGameName()));//just connect to existing game for now
+			model.addAttribute("pageTitle", shiritoriGames.get(body.getGameName()));
 		}
 		//returns just a fragment, kinda cool
 		return "shiritori.html :: shiritori"; 

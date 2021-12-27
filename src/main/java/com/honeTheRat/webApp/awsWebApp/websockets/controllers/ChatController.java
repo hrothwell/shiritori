@@ -25,6 +25,8 @@ public class ChatController {
 	@Autowired
 	private SimpMessagingTemplate simpMessagingTemplate;
 	
+	@Autowired 
+	private SimpUserRegistry userRegistry;
 	//TODO : Is there a potential memory leak when a user changes rooms but does so in a way to bypass our stompClient.disconnect() call in js? 
 	//While testing using our /admin/socketConnections endpoint, it will say there are more users connected as someone has multiple connections open
 	@MessageMapping("/{room}")
@@ -38,7 +40,6 @@ public class ChatController {
 		return m;
 	}
 	
-	@Autowired private SimpUserRegistry userRegistry;
 	
 	@GetMapping("/admin/socketConnections")
 	public String getSocketConnectionsJSON(Model model) {

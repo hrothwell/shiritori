@@ -1,6 +1,11 @@
 /**
  * 
  */
+$(document).ready(function(){
+	$("#createGameButton").click(function(){
+		createGame();
+	});
+});
 
 function createGame(){
 	//TODO: unsubscribe their stomp client? 
@@ -36,12 +41,6 @@ function createGame(){
 	});
 }
 
-$(document).ready(function(){
-	$("#createGameButton").click(function(){
-		createGame();
-	});
-});
-
 function setupShiritoriStompClient(){
 	
 	if(subscriptions){
@@ -75,7 +74,7 @@ function subToShiritoriGame(gameName){
 
 function handleShiritoriMessage(messageObject){
 	var builtMessage = messageObject.userName + ": " + messageObject.message;
-	var timeStamp = new Date().toUTCString();
+	var timeStamp = new Date().toTimeString().split(" ")[0];
 	$("#shiritoriUserMessageBox").before(`<span>${timeStamp} - ${builtMessage}<br/>`);
 }
 
@@ -89,6 +88,6 @@ function sendShiritoriMessage(){
 		message: input.val(),
 		gameName: shiritoriGameName
 	}
-	stompClient.send(`/app/shiritori/${shiritoriGameName}`, {custom: "HAIDEN"}, JSON.stringify(m));
+	stompClient.send(`/app/shiritori/${shiritoriGameName}`, {}, JSON.stringify(m));
 	input.val("");
 }

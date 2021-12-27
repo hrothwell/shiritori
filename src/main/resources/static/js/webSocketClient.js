@@ -102,7 +102,7 @@ function handleMessage(serverMessage, messageBoxId){
 	//TODO This would probably be a good place to use like Vue/React? Can talk to Jeet
 	//Want to also add buttons and onclicks within these divs we are making
 	//change the "message" box to be within this box (the message they send I mean) + get rid of "send message" button and instead just send on keypress for enter
-	var timeStamp = new Date().toUTCString();
+	var timeStamp = new Date().toTimeString().split(" ")[0];
 	if(document.getElementById(messageBoxId)){
 		
 		$(`#${messageBoxId}`).before(`<span>${timeStamp} - ${serverMessage}</span><br/>`);
