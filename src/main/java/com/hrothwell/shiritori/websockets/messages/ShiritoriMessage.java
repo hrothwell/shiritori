@@ -1,7 +1,6 @@
-package com.hrothwell.shiritori.game.pojos;
+package com.hrothwell.shiritori.websockets.messages;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.hrothwell.shiritori.websockets.pojos.BasicMessage;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ShiritoriMessage extends BasicMessage {
 	//username / message live in parent, the "message" should be their word

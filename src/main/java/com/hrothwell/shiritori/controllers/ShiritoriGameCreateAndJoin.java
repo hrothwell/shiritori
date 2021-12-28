@@ -22,7 +22,7 @@ import org.thymeleaf.util.StringUtils;
 import com.hrothwell.shiritori.enums.AdminConstants;
 import com.hrothwell.shiritori.game.pojos.CreateAndJoinGameBody;
 import com.hrothwell.shiritori.game.pojos.ShiritoriGame;
-import com.hrothwell.shiritori.websockets.pojos.BasicMessage;
+import com.hrothwell.shiritori.websockets.messages.BasicMessage;
 
 /**
  * Controller for creating/joining a Shiritori
@@ -41,6 +41,9 @@ public class ShiritoriGameCreateAndJoin {
 	//TODO set content type? 
 	@PostMapping("/shiritori/createGame")
 	public String createShiritoriGame(@RequestBody CreateAndJoinGameBody body, Model model) {
+		
+		//TODO if name is not alphanumeric we have issues subscribing to their websocket as we only allow alphanumeric
+		
 		//make game object, pass into view
 		if(shiritoriGames.get(body.getGameName()) == null) {
 			//make game, attach to model
@@ -53,10 +56,11 @@ public class ShiritoriGameCreateAndJoin {
 			shiritoriGames.put(newGame.getGameName(), newGame);
 			model.addAttribute("pageTitle", newGame.getGameName());
 			model.addAttribute("game", newGame);
+			//TODO add user's name to the model, also add password
 		}
 		else {
-			//game already exists
-			model.addAttribute("game", shiritoriGames.get(body.getGameName()));//just connect to existing game for now
+			//game already exists, just connect to existing game for now
+			model.addAttribute("game", shiritoriGames.get(body.getGameName()));
 			model.addAttribute("pageTitle", shiritoriGames.get(body.getGameName()));
 		}
 		//returns just a fragment, kinda cool
@@ -64,16 +68,14 @@ public class ShiritoriGameCreateAndJoin {
 	}
 	
 	@GetMapping("/shiritori/joinGame/{gameName}")
-	public String joinShiritoriGame(@PathVariable String gameName, @RequestParam(name="password", required=false, defaultValue="") String password,
-			@RequestParam(name="userName", required=false, defaultValue="NO_NAME") String userName, Model model) {
+	public String joinShiritoriGame(@PathVariable String gameName, @RequestParam(name="userName", required=false, defaultValue="NO_NAME") String userName,
+			@RequestParam(name="password", required=false, defaultValue="") String password, Model model) {
 		ShiritoriGame g = shiritoriGames.get(gameName);
 		if(g != null && g.getGamePassword().equals(password)) {
 			//if name is NO_NAME generate a random name? Check for users with their name and if one exists, try to make it unique somehow in order for them to join? 
-			//join game
-			//pass game object into view
-			model.addAttribute("game", null);
-			model.addAttribute("pageTitle", "title");
-			return "shiritori.html";
+			model.addAttribute("game", g);
+			model.addAttribute("pageTitle", g.getGameName());
+			return "shiritori.html :: shiritori";
 		}
 		else {
 			throw new RuntimeException("Incorrect password or game does not exist!");

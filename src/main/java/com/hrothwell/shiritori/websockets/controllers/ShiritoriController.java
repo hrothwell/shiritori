@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 
 import com.hrothwell.shiritori.enums.AdminConstants;
 import com.hrothwell.shiritori.game.logic.ShiritoriGameLogic;
-import com.hrothwell.shiritori.game.pojos.ShiritoriMessage;
-import com.hrothwell.shiritori.websockets.pojos.BasicMessage;
+import com.hrothwell.shiritori.websockets.messages.BasicMessage;
+import com.hrothwell.shiritori.websockets.messages.ShiritoriMessage;
 @Controller
 public class ShiritoriController {
 

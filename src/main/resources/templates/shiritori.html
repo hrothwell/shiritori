@@ -6,6 +6,7 @@
 	<div id="shiritori" th:fragment="shiritori">
 		<!-- Header with game room name -->
 		<h1 id="gameName" th:text="${game.gameName}"></h1>
+		<h2 id="userNameHeader">Your username is: <span id="userName" th:text="${userName != null ? userName : 'unknown'}">unknown</span></h2>
 		<!--  list of players? then how to update if someone new joins? updates when game started? -->
 		<!-- box of messages -->
 		<div id="shiritoriGameMessages" style="border-style: double;">

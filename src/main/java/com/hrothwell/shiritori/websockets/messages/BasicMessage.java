@@ -1,4 +1,4 @@
-package com.hrothwell.shiritori.websockets.pojos;
+package com.hrothwell.shiritori.websockets.messages;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

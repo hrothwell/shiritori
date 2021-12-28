@@ -13,7 +13,7 @@ import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 
 import com.hrothwell.shiritori.enums.AdminConstants;
 import com.hrothwell.shiritori.game.pojos.ShiritoriGame;
-import com.hrothwell.shiritori.websockets.pojos.BasicMessage;
+import com.hrothwell.shiritori.websockets.messages.BasicMessage;
 
 /**
  * Listens to events on our sockets, used for when a user subscribes to a topic we send a message to everyone subscribed to that topic

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hrothwell.shiritori.enums.AdminConstants;
-import com.hrothwell.shiritori.websockets.pojos.BasicMessage;
+import com.hrothwell.shiritori.websockets.messages.BasicMessage;
 
 @Controller
 public class ChatController {
