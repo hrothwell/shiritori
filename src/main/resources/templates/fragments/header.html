@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="defaultHead">
+	<title th:text="${pageTitle != null ? pageTitle : 'No title'}"></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script type="text/javascript" src="http://cdn.rawgit.com/h2non/jsHashes/master/hashes.js"></script>
     <script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
     <script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
 	
-	<script type="text/javascript" th:src="@{/js/test.js}"></script>
 	<script type="text/javascript" th:src="@{/js/webSocketClient.js}"></script>
-	
-	<script th:inline="javascript">
-		$(document).ready(function(){
-			myFunction();
-			console.log("test");
-		});
-	</script>
+	<script type="text/javascript" th:src="@{/js/shiritori.js}"></script>
 </head>
 <body>
 </body>

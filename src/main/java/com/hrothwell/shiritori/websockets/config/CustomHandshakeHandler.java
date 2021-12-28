@@ -1,4 +1,4 @@
-package com.honeTheRat.webApp.awsWebApp.websockets.config;
+package com.hrothwell.shiritori.websockets.config;
 
 import java.security.Principal;
 import java.util.Map;

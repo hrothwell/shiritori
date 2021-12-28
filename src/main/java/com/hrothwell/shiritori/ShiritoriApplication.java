@@ -1,12 +1,12 @@
-package com.honeTheRat.webApp.awsWebApp;
+package com.hrothwell.shiritori;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+//TODO add error handlers
 @SpringBootApplication
-public class AwsWebAppApplication {
+public class ShiritoriApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AwsWebAppApplication.class, args);
+		SpringApplication.run(ShiritoriApplication.class, args);
 	}
 }

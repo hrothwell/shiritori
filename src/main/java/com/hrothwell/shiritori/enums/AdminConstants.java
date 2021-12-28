@@ -1,4 +1,4 @@
-package com.honeTheRat.webApp.awsWebApp.enums;
+package com.hrothwell.shiritori.enums;
 /**
  * Various constants to just use for random message things (server sending to all clients kinda stuff)
  * @author hrothwell

@@ -1,4 +1,4 @@
-package com.honeTheRat.webApp.awsWebApp.websockets.config;
+package com.hrothwell.shiritori.websockets.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

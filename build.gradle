@@ -5,7 +5,7 @@ plugins {
 	id 'war'
 }
 
-group = 'com.honeTheRat.webApp'
+group = 'com.hrothwell.shiritori'
 version = '0.0.2-SNAPSHOT'
 sourceCompatibility = '11'
 

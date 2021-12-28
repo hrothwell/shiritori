@@ -1,4 +1,4 @@
-package com.honeTheRat.webApp.awsWebApp.websockets.pojos;
+package com.hrothwell.shiritori.websockets.messages;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

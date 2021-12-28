@@ -1,10 +1,10 @@
-package com.honeTheRat.webApp.awsWebApp;
+package com.hrothwell.shiritori.test;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AwsWebAppApplicationTests {
+class ShiritoriTests {
 
 	@Test
 	void contextLoads() {
