@@ -41,7 +41,7 @@ function createGame(){
 				sendShiritoriMessage();
 			}
 			
-		})
+		});
 	});
 }
 
@@ -71,8 +71,7 @@ function joinGame(){
 			if(key.which === 13){
 				sendShiritoriMessage();
 			}
-			
-		})
+		});
 	});
 }
 

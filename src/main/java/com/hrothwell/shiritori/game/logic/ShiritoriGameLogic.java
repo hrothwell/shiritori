@@ -68,17 +68,16 @@ public class ShiritoriGameLogic {
 		boolean foundValidWord = false;
 		try {
 			ResponseEntity<Object[]> r = rest.getForEntity("https://api.dictionaryapi.dev/api/v2/entries/en/{word}", Object[].class, word);
-			HashMap<String, Object> map = (HashMap<String, Object>) r.getBody()[0];// first item returned
+			HashMap<String, Object> map = (HashMap<String, Object>) r.getBody()[0];
 			List<HashMap<String, Object>> meanings = (List<HashMap<String, Object>>) map.get("meanings");
 			for(HashMap<String, Object> m : meanings) {
 				String partOfSpeech = (String) m.get("partOfSpeech");
 				if(partOfSpeech.trim().equalsIgnoreCase("noun")) {
 					//valid word
 					List<HashMap<String, Object>> definitions = (List<HashMap<String, Object>>) m.get("definitions");
-					//always just grab first def
 					String def = (String) definitions.get(0).get("definition");
 					message.append(word + ": " + def);
-					foundValidWord = true; //found valid word
+					foundValidWord = true; 
 					break;
 				}
 			}

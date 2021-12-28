@@ -4,13 +4,17 @@ import java.util.Date;
 import java.util.HashSet;
 
 public class ShiritoriGame {
-	private String gameName; //name of the "room" they are in. Should this be some sort of hash? The key for the map this lives in will probably also be the gameName
-	private String gamePassword; //password to enter the game? 
+	//Should this be some sort of hash? This is the key for the map the game is in
+	private String gameName; 
+	//password to enter the game
+	private String gamePassword; 
 	private HashSet<String> seenWords;
-	private HashSet<String> players; //dunno if this is really needed tbh
-	private String lastKnownWord; //last word that was played
-	private String lastKnownPlayer; //See who last played a VALID word. what to store here? name? IP? 
-	private boolean gameStarted; //if the game is currently ongoing
+	private HashSet<String> players; 
+	private String lastKnownWord; 
+	//See who last played a VALID word. what to store here? name? IP? 
+	private String lastKnownPlayer; 
+	//if the game is currently ongoing (not yet implemented)
+	private boolean gameStarted; 
 	private Date timeLastActive;
 	
 	public ShiritoriGame() {
