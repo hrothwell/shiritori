@@ -18,7 +18,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.hrothwell.shiritori.game.pojos.ShiritoriGame;
 import com.hrothwell.shiritori.websockets.messages.ShiritoriMessage;
-
+/**
+ * TODO: would be kinda cool to get an image of the word they played and display that as the page background for everyone? 
+ * @author hrothwell
+ *
+ */
 @Service
 public class ShiritoriGameLogic {
 	private Logger log = LoggerFactory.getLogger(getClass());

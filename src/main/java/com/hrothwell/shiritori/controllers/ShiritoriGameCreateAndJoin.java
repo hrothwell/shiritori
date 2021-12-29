@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.StringUtils;
 
 import com.hrothwell.shiritori.enums.AdminConstants;
+import com.hrothwell.shiritori.exceptions.ShiritoriJoinException;
 import com.hrothwell.shiritori.game.pojos.CreateAndJoinGameBody;
 import com.hrothwell.shiritori.game.pojos.ShiritoriGame;
 import com.hrothwell.shiritori.websockets.messages.BasicMessage;
@@ -51,17 +52,19 @@ public class ShiritoriGameCreateAndJoin {
 			newGame.setGameName(body.getGameName());
 			//TODO if it is null will that affect joining? 
 			newGame.setGamePassword(StringUtils.trim(body.getPassword()));
-			newGame.setTimeLastActive(new Date()); //game started = active
-			newGame.getPlayers().add("TODO");
+			//game started = active
+			newGame.setTimeLastActive(new Date()); 
 			shiritoriGames.put(newGame.getGameName(), newGame);
 			model.addAttribute("pageTitle", newGame.getGameName());
 			model.addAttribute("game", newGame);
+			model.addAttribute("userName", body.getUserName());
 			//TODO add user's name to the model, also add password
 		}
 		else {
 			//game already exists, just connect to existing game for now
 			model.addAttribute("game", shiritoriGames.get(body.getGameName()));
 			model.addAttribute("pageTitle", shiritoriGames.get(body.getGameName()));
+			model.addAttribute("userName", body.getUserName());
 		}
 		//returns just a fragment, kinda cool
 		return "shiritori.html :: shiritori"; 
@@ -75,10 +78,11 @@ public class ShiritoriGameCreateAndJoin {
 			//if name is NO_NAME generate a random name? Check for users with their name and if one exists, try to make it unique somehow in order for them to join? 
 			model.addAttribute("game", g);
 			model.addAttribute("pageTitle", g.getGameName());
+			model.addAttribute("userName", userName);
 			return "shiritori.html :: shiritori";
 		}
 		else {
-			throw new RuntimeException("Incorrect password or game does not exist!");
+			throw new ShiritoriJoinException("Incorrect password or game does not exist!");
 		}
 	}
 	

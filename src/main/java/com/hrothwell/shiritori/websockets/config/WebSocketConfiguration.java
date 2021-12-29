@@ -27,7 +27,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		//TODO HRR: not sure what this really does tbh
-		registry.addEndpoint("/gs-guide-websocket")
+		registry.addEndpoint("/main-websocket")
 		.setHandshakeHandler(new CustomHandshakeHandler())
 		.withSockJS();
 		log.info("Finished setting up StompEndpointRegistry");

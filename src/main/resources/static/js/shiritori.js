@@ -13,7 +13,7 @@ $(document).ready(function(){
 function createGame(){
 	
 	var createGameName = $("#createOrJoinGameName").val();
-	var createGamePassword = $("#createOrJoinGamePassword").val();
+	var createGamePassword = $("#createOrJoinGamePassword").val().trim();
 	
 	//TODO move this call somewhere else and make it more reusable? we use it twice in this file and it is essentially the same. 
 	//Could at least make the success method shared.
@@ -24,59 +24,58 @@ function createGame(){
 		contentType: "application/json",
 		data: JSON.stringify({
 			gameName: createGameName,
-			password: createGamePassword
+			password: createGamePassword,
+			userName: $("#name").val().trim()
 		}),
 		traditional: true,
 		success: function(data){
 			console.log("Success: " + data);
 			$(document.body).html(data);
 			console.log("done loading");
+		},
+		error: function(jqXHR){
+			alert("Error creating game: " + jqXHR.responseText);
 		}
 			
 	}).done(function(data){
 		console.log("In 'done' block now");
 		setupShiritoriStompClient();
-		$("#shiritoriUserMessageBox").keypress(function(key){
-			if(key.which === 13){
-				sendShiritoriMessage();
-			}
-			
-		});
 	});
 }
 
 function joinGame(){
 	var joinGameName = $("#createOrJoinGameName").val();
 	var joinGamePassword = $("#createOrJoinGamePassword").val();
+	var userName = $("#name").val();
 	var baseUrl = window.location.origin; //todo test what this returns
 	var joinUrl = new URL(`/shiritori/joinGame/${joinGameName}`, baseUrl);
 	
 	if(joinGamePassword.trim() !== ""){
 		joinUrl.searchParams.append("password", joinGamePassword.trim());
 	}
+	if(userName.trim() !== ""){
+		joinUrl.searchParams.append("userName", userName.trim());
+	}
 	
 	$.ajax({
 		url: joinUrl.toString(),
 		method: "GET",
 		success: function(data){
-			console.log("Success: " + data);
 			$(document.body).html(data);
 			console.log("done loading");
+		},
+		error: function(jqXHR){
+			alert("Error joining game: " + jqXHR.responseText);
 		}
 			
 	}).done(function(data){
 		console.log("In 'done' block now");
 		setupShiritoriStompClient();
-		$("#shiritoriUserMessageBox").keypress(function(key){
-			if(key.which === 13){
-				sendShiritoriMessage();
-			}
-		});
 	});
 }
 
+//Must be called AFTER game is loaded
 function setupShiritoriStompClient(){
-	
 	//"subscriptions" and "stompClient" are setup in webSocketClient.js
 	if(subscriptions){
 		for(var [key, value] of subscriptions){
@@ -90,14 +89,23 @@ function setupShiritoriStompClient(){
 	
 	var gameName = $("#gameName").html();
 	
-	var socket = new SockJS('/gs-guide-websocket'); 
+	var socket = new SockJS('/main-websocket'); 
 	stompClient = Stomp.over(socket); 
 	
-	//TODO add an "onError" and "onClose" for client
 	stompClient.connect({}, function(frame){
 		console.log("Shiritori connect frame: " + frame);
 		subToShiritoriGame(gameName);
+		},
+		//error handler function
+		function(frame){alert("Error connecting: " + frame);}
+	);
+	
+	$("#shiritoriUserMessageBox").keypress(function(key){
+			if(key.which === 13){
+				sendShiritoriMessage();
+			}
 	});
+	
 }
 
 function subToShiritoriGame(gameName){
@@ -120,7 +128,7 @@ function sendShiritoriMessage(){
 	var shiritoriGameName = $("#gameName").html();
 	
 	var m = {
-		userName: "",
+		userName: $("#userName").html(),
 		message: input.val(),
 		gameName: shiritoriGameName
 	}

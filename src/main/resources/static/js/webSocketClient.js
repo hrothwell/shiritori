@@ -15,10 +15,6 @@ $(document).ready(function(){
         e.preventDefault();
     });
 
-	$("#send").on("click", function(){
-		sendMessage();
-	});
-	
 	$("#subscribe").click(function(){
 		subscribeTo();
 	});
@@ -28,13 +24,16 @@ function connect(room){
 	if(stompClient){
 		stompClient.disconnect();//disconnect client from server if it already exists
 	}
-	var socket = new SockJS('/gs-guide-websocket'); //thing defined in controller for SockJS
+	var socket = new SockJS('/main-websocket'); //thing defined in controller for SockJS
 	stompClient = Stomp.over(socket); //will this auto disconnect from current socket? 
 	
 	//TODO add an "onError" and "onClose" for client
 	stompClient.connect({}, function(frame){
 		console.log("Connect frame: " + frame);
 		subscribeTo(room);
+	},
+	function(frame){
+		alert("Error: " + frame);
 	});
 }
 
@@ -46,6 +45,11 @@ function subscribeTo(room){
 		var userRoom = $("#room").val();
 		url = "/topic/" + userRoom;
 		room = userRoom;
+	}
+	
+	if(!room.match(/^[a-zA-Z0-9]+$/)){
+		alert("Please only use alphanumerics, or you will end up nowhere");
+		return;
 	}
 	roomMD5 = MD5.hex(room);
 	
@@ -93,7 +97,6 @@ function unsubscribeFrom(room){
 		subscriptions.delete(room);
 	}
 	alert("removed from " + room);
-	disconnectMessage(room);//send one last message to all users still in the room. TODO: could this be done from the server instead? 
 	$(`#${roomMD5}`).remove(); //get rid of everything associated with the room. if this stays here they can still send messages, they just wont see anything
 }
 
@@ -121,13 +124,4 @@ function sendMessage(domTextInput, destinationRoom){
 	//we need to prepend /app so it looks for our annotated server method? 
 	stompClient.send("/app/" + destinationRoom, {}, JSON.stringify(messageObject));
 	domTextInput.value = "";
-}
-
-//when user disconnect from room, send this
-function disconnectMessage(room){
-	var messageObject = {
-		userName: $("#name").val(),
-		message: "DISCONNECTED"
-	}
-	stompClient.send("/app/" + room, {}, JSON.stringify(messageObject));
 }
