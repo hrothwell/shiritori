@@ -92,11 +92,9 @@ public class ShiritoriGameCreateAndJoin {
 		}
 	}
 	
-	//TODO find game mapping
 	@GetMapping("/shiritori/findGames")
 	public String findShiritoriGames(Model model) {
 		model.addAttribute("shiritoriGames", shiritoriGames);
-		// return games in json format for client to render and display? or make new template? I like templates...
 		return "/fragments/shiritoriFragments.html :: findGames";
 	}
 	
