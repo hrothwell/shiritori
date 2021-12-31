@@ -16,8 +16,20 @@
 		<div style="text-align: center;" id="joinCreateButtonDiv">
 			<button id="createGameButton">Create</button>
 			<button id="joinGameButton">Join</button>
+			<button id="findGamesButton">Search</button>
 		</div>
 		
+	</div>
+	
+	<div th:fragment="findGames">
+		<!-- For each game in games object passed in, build a div with the info about said game -->
+		<h2 style="text-align: center">Current games</h2>
+		<!-- if game has a password, add a space for them to enter a password -->
+		<div class="foundGame" th:each="game: ${shiritoriGames}">
+			<span th:text="${game.key}"></span>
+			<span><input th:id="${game.key} + '_findGamePassword'" type="text" class="userInput" placeholder="password..."/></span>
+			<button th:value="${game.key}" onclick="joinGame(this);">Join</button>
+		</div>
 	</div>
 	
 </body>

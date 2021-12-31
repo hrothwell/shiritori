@@ -120,8 +120,7 @@ function handleMessage(serverMessage, messageBoxId){
 		d.scrollTop(d.prop("scrollHeight"));
 	}
 	else{
-		//TODO don't alert them
-		alert("Something didn't work, how did you get here...");
+		console.log("Something didn't work quite right, client is still probably trying to receive messages but box does not exist");
 	}
 }
 
