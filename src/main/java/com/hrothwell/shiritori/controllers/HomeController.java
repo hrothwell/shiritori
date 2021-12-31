@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
 	@GetMapping("/")
 	public String noDirectory(Model model) {
-		model.addAttribute("pageTitle", "home page");
+		model.addAttribute("pageTitle", "The Den");
 		return "home.html";
 	}
 	
@@ -21,7 +21,7 @@ public class HomeController {
 	 */
 	@GetMapping("/home")
 	public String homePage(Model model) {
-		model.addAttribute("pageTitle", "home page");
+		model.addAttribute("pageTitle", "The Den");
 		//should match the "template" name I believe. File extension not always necessary but it was needed for a .txt file 
 		//so I thought it would be worthwhile to add it here for now also. TODO: look into defining my own ThymeleafViewResolver or ServletContextTemplateResolver (seems cleaner)
 		return "home.html";

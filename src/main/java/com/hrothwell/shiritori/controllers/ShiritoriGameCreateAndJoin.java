@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.tomcat.util.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.StringUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hrothwell.shiritori.enums.AdminConstants;
 import com.hrothwell.shiritori.exceptions.ShiritoriJoinException;
 import com.hrothwell.shiritori.game.pojos.CreateAndJoinGameBody;
@@ -28,8 +30,7 @@ import com.hrothwell.shiritori.websockets.messages.BasicMessage;
 /**
  * Controller for creating/joining a Shiritori
  * TODO: would probably be better to manage users via sessions/ip address/something. Right now we trust them to send a "name" on each message for the game. But also, it doesn't
- * really matter! This isn't meant to be a super secure thing
- * and we use that to identify the player during gameplay
+ * really matter! This isn't meant to be a super secure thing with robust rules
  * @author hrothwell
  *
  */
@@ -40,12 +41,14 @@ public class ShiritoriGameCreateAndJoin {
 	private SimpMessagingTemplate template;
 	@Autowired
 	private Map<String, ShiritoriGame> shiritoriGames;
-	//TODO set content type? 
+	
 	@PostMapping("/shiritori/createGame")
 	public String createShiritoriGame(@RequestBody CreateAndJoinGameBody body, Model model) {
 		
-		//TODO if name is not alphanumeric we have issues subscribing to their websocket as we only allow alphanumeric
-		
+		//if name is not alphanumeric we have issues subscribing to their websocket as we only allow alphanumeric in CustomInterceptor
+		if(!body.getGameName().matches("^[a-zA-Z0-9]+$")) {
+			throw new ShiritoriJoinException("Please use alphanumeric game names");
+		}
 		if(body.getUserName().isBlank()) {
 			body.setUserName("unknown");
 		}
@@ -87,6 +90,14 @@ public class ShiritoriGameCreateAndJoin {
 		else {
 			throw new ShiritoriJoinException("Incorrect password or game does not exist!");
 		}
+	}
+	
+	//TODO find game mapping
+	@GetMapping("/shiritori/findGames")
+	public String findShiritoriGames(Model model) {
+		model.addAttribute("shiritoriGames", shiritoriGames);
+		// return games in json format for client to render and display? or make new template? I like templates...
+		return "/fragments/shiritoriFragments.html :: findGames";
 	}
 	
 	//manages removing inactive games

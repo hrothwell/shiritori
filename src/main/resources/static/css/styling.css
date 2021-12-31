@@ -56,6 +56,10 @@ div.generalMessages {
 	background-color: dimgray;
 }
 
+div.foundGame{
+	text-align: center;
+}
+
 /* buttons within chat boxes */
 button{
 	background-color: transparent;

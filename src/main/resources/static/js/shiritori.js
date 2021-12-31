@@ -7,7 +7,10 @@ $(document).ready(function(){
 	});
 	$("#joinGameButton").click(function(){
 		joinGame();
-	})
+	});
+	$("#findGamesButton").click(function(){
+		findGames();
+	});
 });
 
 function createGame(){
@@ -43,10 +46,25 @@ function createGame(){
 	});
 }
 
-function joinGame(){
-	var joinGameName = $("#createOrJoinGameName").val();
-	var joinGamePassword = $("#createOrJoinGamePassword").val();
-	var userName = $("#name").val();
+function joinGame(joinGameButton){
+	var joinGameName;
+	var joinGamePassword = "";
+	var userName = "";
+	//if button object passed in, should have the info we need
+	if(joinGameButton){
+		//findGames page
+		joinGameName = joinGameButton.value; //game name is button's value
+		var textInput = $(`#${joinGameName}_findGamePassword`).val();
+		joinGamePassword = textInput ? textInput.trim() : ""; //if the password exists, use it? 
+	}
+	else{
+		//home page
+		joinGameName = $("#createOrJoinGameName").val();
+		joinGamePassword = $("#createOrJoinGamePassword").val();
+		userName = $("#name").val();
+	}
+	
+	
 	var baseUrl = window.location.origin; //todo test what this returns
 	var joinUrl = new URL(`/shiritori/joinGame/${joinGameName}`, baseUrl);
 	
@@ -74,18 +92,27 @@ function joinGame(){
 	});
 }
 
+function findGames(){
+	clearSTOMP();
+	$.ajax({
+		url: "/shiritori/findGames",
+		method: "GET",
+		success: function(data){
+			$(document.body).html(data);
+			console.log("done loading");
+		},
+		error: function(jqXHR){
+			alert("Error finding games: " + jqXHR.responseText);
+		}	
+	}).done(function(data){
+		console.log("In 'done' block now");
+	});
+}
+
+
 //Must be called AFTER game is loaded
 function setupShiritoriStompClient(){
-	//"subscriptions" and "stompClient" are setup in webSocketClient.js
-	if(subscriptions){
-		for(var [key, value] of subscriptions){
-			value.unsubscribe(); //remove the room so they stop getting messages
-		}
-	}
-	if(stompClient){
-		stompClient.disconnect();
-		stompClient = null;
-	}
+	clearSTOMP();
 	
 	var gameName = $("#gameName").html();
 	
@@ -108,6 +135,18 @@ function setupShiritoriStompClient(){
 	
 	uiSetup();
 	
+}
+//Remove everything. Usually when we are re-writing to dom we will want to do this
+function clearSTOMP(){
+	if(subscriptions){
+		for(var [key, value] of subscriptions){
+			value.unsubscribe(); //remove the room so they stop getting messages
+		}
+	}
+	if(stompClient){
+		stompClient.disconnect();
+		stompClient = null;
+	}
 }
 
 function subToShiritoriGame(gameName){
