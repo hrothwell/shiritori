@@ -4,12 +4,18 @@
 	<title th:text="${pageTitle != null ? pageTitle : 'No title'}"></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" integrity="sha256-hlKLmzaRlE8SCJC1Kw8zoUbU8BxA+8kR3gseuKfMjxA=" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="http://cdn.rawgit.com/h2non/jsHashes/master/hashes.js"></script>
     <script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
     <script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
 	
 	<script type="text/javascript" th:src="@{/js/webSocketClient.js}"></script>
 	<script type="text/javascript" th:src="@{/js/shiritori.js}"></script>
+	
+	<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}"/>
+	<link rel="stylesheet" th:href="@{/css/theme.css}"/>
+	
+	<link rel="stylesheet" th:href="@{/css/styling.css}"/>
 </head>
 <body>
 </body>

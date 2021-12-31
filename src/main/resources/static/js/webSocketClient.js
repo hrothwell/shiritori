@@ -7,7 +7,7 @@ var subscriptions = new Map(); //all stomp subscriptions key=topic endpoint valu
 var MD5 = new Hashes.MD5();
 $(document).ready(function(){
 	//start in random room
-	var roomId = Math.floor(Math.random() * 100).toString(); //testing with having multiple rooms (random num means every user is in their own room most likely)
+	var roomId = "lobby"; //drop everyone here to start
 	connect(roomId);
 	
 	//form is being submitted or something with button, disable it
@@ -59,19 +59,25 @@ function subscribeTo(room){
 	}
 	
 	var userMessageRoomBox = `${roomMD5}UserMessage`;
+	var serverMessageBox = `${roomMD5}serverMessages`;
 	
 	//TODO Something here can error out when they send bad room name, server sends error but div is still made 
 	var newSub = stompClient.subscribe(url, function(reply){
-		handleMessage(JSON.parse(reply.body).userName + ": " + JSON.parse(reply.body).message, userMessageRoomBox);
+		handleMessage(JSON.parse(reply.body).userName + ": " + JSON.parse(reply.body).message, serverMessageBox);
 	});
 	
 	if(!document.getElementById(roomMD5)){
 		//Manually build the input for the new room
-		$("#messageBox").append(`<div id=${roomMD5} style="border-style:double;">
-			<b>Subscribed to ${room}</b>
-			<button id="${roomMD5}UnsubscribeButton">Disconnect</button>
+		$("#messageBox").append(`<div id=${roomMD5} class="generalMessages">
+			<div>
+				<b>${room}</b>
+				<button id="${roomMD5}UnsubscribeButton">Disconnect</button>
+			</div>
 			<br/>
-			<input id="${userMessageRoomBox}" type="text"/>`);
+			<div id="${serverMessageBox}" class="serverMessageBox"></div>
+			<div class="userMessageBox">
+				<input id="${userMessageRoomBox}" type="text" placeholder="message"/>
+			</div>`);
 		//When user hits enter, send message
 		$(`#${userMessageRoomBox}`).keypress(function(key){
 			if(key.which === 13){
@@ -87,6 +93,7 @@ function subscribeTo(room){
 		$(`#${userMessageRoomBox}`).append(`<br/><b>Reconnected to ${room}<b/>`);
 	}
 	subscriptions.set(room, newSub);
+	uiSetup();//todo move this somewhere else? lives in shiritori.js
 }
 
 function unsubscribeFrom(room){
@@ -108,7 +115,9 @@ function handleMessage(serverMessage, messageBoxId){
 	var timeStamp = new Date().toTimeString().split(" ")[0];
 	if(document.getElementById(messageBoxId)){
 		
-		$(`#${messageBoxId}`).before(`<span>${timeStamp} - ${serverMessage}</span><br/>`);
+		$(`#${messageBoxId}`).append(`<span>${timeStamp} - ${serverMessage}</span><br/>`);
+		var d = $(`#${messageBoxId}`);
+		d.scrollTop(d.prop("scrollHeight"));
 	}
 	else{
 		//TODO don't alert them

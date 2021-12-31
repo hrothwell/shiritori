@@ -32,7 +32,7 @@ public class ChatController {
 	@SendTo("/topic/{room}")
 	public BasicMessage sendAndReceive(BasicMessage m, @DestinationVariable String room) throws Exception{
 		log.info("Received message to room: {}", room);
-		if(m.getUserName().equals(AdminConstants.UserName.getValue())) {
+		if(m.getUserName().equalsIgnoreCase(AdminConstants.UserName.getValue())) {
 			m.setUserName("I See You... ");
 		}
 		Thread.sleep(100); 

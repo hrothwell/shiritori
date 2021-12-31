@@ -19,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 import com.hrothwell.shiritori.game.pojos.ShiritoriGame;
 import com.hrothwell.shiritori.websockets.messages.ShiritoriMessage;
 /**
- * TODO: would be kinda cool to get an image of the word they played and display that as the page background for everyone? 
  * @author hrothwell
  *
  */
@@ -50,7 +49,7 @@ public class ShiritoriGameLogic {
 		char firstLetter = playedWord.charAt(0);
 		char lastOfLastWord = g.getLastKnownWord().charAt(g.getLastKnownWord().length()-1);
 		
-		//TODO also verify the person playing the word did not play the last word
+		//TODO also verify the person playing the word did not play the last word? 
 		if(firstLetter == lastOfLastWord || lastOfLastWord == '?') {
 			boolean validWord = checkDictionary(playedWord, replyMessage);
 			if(validWord) {

@@ -5,14 +5,22 @@
 <body>
 	<div id="shiritori" th:fragment="shiritori">
 		<!-- Header with game room name -->
-		<h1 id="gameName" th:text="${game.gameName}"></h1>
-		<h2 id="gamePassword" th:text="${game.gamePassword}"></h2>
-		<h2 id="userNameHeader">Your username is: <span id="userName" th:text="${userName != null ? userName : 'unknown'}">unknown</span></h2>
-		<!--  list of players? then how to update if someone new joins? updates when game started? -->
+		<h1 id="gameNameHeader">Game name: <span id="gameName" th:text="${game.gameName}"></span></h1>
+		<h2 id="gamePasswordHeader">Game password: <span id="gamePassword" th:text="${game.gamePassword}"></span></h2>
+		<!-- TODO style to remove the box around this -->
+		<h2 id="userNameHeader">Your alias is: <input id="userName" class="userName" type="text" th:value="${userName}"/></h2>
+		<!--  TODO: let user pick their color?  -->
+		<input type="text" id="colorPicker"/>
+		<div id="shiritoriMessages" class="generalMessages">
 		<!-- box of messages -->
-		<div id="shiritoriGameMessages" style="border-style: double;">
-			<input id="shiritoriUserMessageBox" type="text"/>
+			<div id="shiritoriGameMessages" class="serverMessageBox">
+				<!-- messages from the game -->
+			</div>
+			<div id="shiritoriUserTextDiv" class="userMessageBox">
+				<input id="shiritoriUserMessageBox" type="text" placeholder="type here"/>
+			</div>
 		</div>
+		
 	</div>
 	<!-- disconnect button? home button? something to get back -->
 </body>

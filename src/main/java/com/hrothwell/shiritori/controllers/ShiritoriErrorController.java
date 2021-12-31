@@ -22,7 +22,7 @@ public class ShiritoriErrorController implements ErrorController{
 	private Logger log = LoggerFactory.getLogger(getClass());
 	
 	/**
-	 * If they are being redirected to the /error endpoint (bad url, exception that wasn't already handled was thrown)
+	 * If they are being redirected to the /error endpoint (bad url, exception that wasn't already handled was thrown, etc)
 	 * @param r
 	 * @param model
 	 * @return

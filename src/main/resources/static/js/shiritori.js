@@ -106,6 +106,8 @@ function setupShiritoriStompClient(){
 			}
 	});
 	
+	uiSetup();
+	
 }
 
 function subToShiritoriGame(gameName){
@@ -119,19 +121,29 @@ function subToShiritoriGame(gameName){
 function handleShiritoriMessage(messageObject){
 	var builtMessage = messageObject.userName + ": " + messageObject.message;
 	var timeStamp = new Date().toTimeString().split(" ")[0];
-	$("#shiritoriUserMessageBox").before(`<span>${timeStamp} - ${builtMessage}</span><br/>`);
+	$("#shiritoriGameMessages").append(`<span>${timeStamp} - ${builtMessage}</span><br/>`);
+	var d = $("#shiritoriGameMessages");
+	d.scrollTop(d.prop("scrollHeight"));
 }
 
 function sendShiritoriMessage(){
 	
 	var input = $("#shiritoriUserMessageBox");
-	var shiritoriGameName = $("#gameName").html();
+	//this isn't really used on the server even though it is added to message, the url is used
+	var shiritoriGameName = $("#gameName").html(); 
 	
 	var m = {
-		userName: $("#userName").html(),
+		userName: $("#userName").val(),
 		message: input.val(),
 		gameName: shiritoriGameName
 	}
+	//TODO is there really any way to prevent them from sending to a game they are not a part of? 
 	stompClient.send(`/app/shiritori/${shiritoriGameName}`, {}, JSON.stringify(m));
 	input.val("");
+}
+
+function uiSetup(){
+	$(".generalMessages").resizable();
+	//TODO make text also highlightable? 
+	$(".generalMessages").draggable();
 }

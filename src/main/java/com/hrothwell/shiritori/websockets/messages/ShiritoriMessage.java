@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ShiritoriMessage extends BasicMessage {
 	//username / message live in parent, the "message" should be their word
-	private String gameName; //the game this message is for. is this really needed though? could map to controller? 
+	
+	//TODO this really isnt needed as we just use the destination there message is being sent to
+	private String gameName; 
 	
 	//TODO what else would be needed? 
 	

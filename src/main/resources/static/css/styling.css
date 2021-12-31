@@ -1,0 +1,100 @@
+@charset "ISO-8859-1";
+
+body{
+	background-color: #485461;
+	background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
+	height: 100vh;
+	color: white; 
+	font: 1.3rem Inconsolata, monospace;
+}
+
+h1.pageTitle{
+	align-self: center;
+	font-size: 50px;
+	text-shadow: 2px 2px 5px gray;
+}
+
+div.homeFlex{
+	display: flex;
+	flex-direction: column;
+}
+
+div.colFlex{
+	display: flex;
+	flex-direction: column;
+}
+
+div.generalMessages {
+	position: absolute;/*mark as important as jqueryUi keeps messing with it when making resizable*/
+	border: double;
+	width: 50%;
+	height: 50%;
+	max-height: 75%;
+	min-height: 25%;
+	max-width: 100%;
+	min-width: 25%;
+	color: #2EF92B;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	background-color: #000000;
+	background-image: linear-gradient(147deg, #000000 0%, #434343 74%);
+	padding: 10px;
+}
+
+.serverMessageBox{
+	overflow-x: wrap;
+	overflow-y: scroll;
+	word-break:break-word;
+	flex: 1; /*not sure?*/
+}
+
+.userMessageBox{
+	position: relative;
+	width: 85%;
+	bottom: 0;
+}
+
+input[type=text]{
+	font: 1.3rem Inconsolata, monospace;
+}
+
+.userMessageBox > input[type=text]{
+	outline: none;
+	border: none;
+	background-color: transparent;
+	color: #2EF92B;
+	width: 75%;
+}
+
+.userMessageBox > input[type=text]::placeholder{
+	color: #46fa44;
+}
+
+input[type=text].userName{
+	outline: none;
+	border: none;
+	background-color: transparent;
+	color: #2EF92B;
+}
+
+/* scrollbars */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: dimgray; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: gray; 
+}
