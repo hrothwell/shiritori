@@ -51,6 +51,7 @@ function joinGame(joinGameButton){
 	var joinGamePassword = "";
 	var userName = "";
 	//if button object passed in, should have the info we need
+	//TODO I would like to not have to do this this way as going forward could make it harder to manage.
 	if(joinGameButton){
 		//findGames page
 		joinGameName = joinGameButton.value; //game name is button's value
