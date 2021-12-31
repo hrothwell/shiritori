@@ -54,7 +54,7 @@ function subscribeTo(room){
 	roomMD5 = MD5.hex(room);
 	
 	if(subscriptions.has(room)){
-		alert("You are already in to that room");
+		alert("You are already in that room");
 		return;
 	}
 	
