@@ -1,2 +1,2 @@
-/*[- I am testing what this comment looks like after template engine runs -]*/
+/*[- This can really be any raw data, string, json, etc -]*/
 [(${json})]

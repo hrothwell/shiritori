@@ -7,7 +7,7 @@ public class CreateAndJoinGameBody {
 	private String gameName;
 	private String password;
 	//name of user making the room
-	private String hostName;
+	private String userName;
 	
 	public String getGameName() {
 		return gameName;
@@ -21,10 +21,10 @@ public class CreateAndJoinGameBody {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getHostName() {
-		return hostName;
+	public String getUserName() {
+		return userName;
 	}
-	public void setHostName(String hostName) {
-		this.hostName = hostName;
+	public void setUserName(String hostName) {
+		this.userName = hostName;
 	}
 }

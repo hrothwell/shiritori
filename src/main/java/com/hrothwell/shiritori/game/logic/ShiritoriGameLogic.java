@@ -18,7 +18,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.hrothwell.shiritori.game.pojos.ShiritoriGame;
 import com.hrothwell.shiritori.websockets.messages.ShiritoriMessage;
-
+/**
+ * @author hrothwell
+ *
+ */
 @Service
 public class ShiritoriGameLogic {
 	private Logger log = LoggerFactory.getLogger(getClass());
@@ -46,7 +49,7 @@ public class ShiritoriGameLogic {
 		char firstLetter = playedWord.charAt(0);
 		char lastOfLastWord = g.getLastKnownWord().charAt(g.getLastKnownWord().length()-1);
 		
-		//TODO also verify the person playing the word did not play the last word
+		//TODO also verify the person playing the word did not play the last word? 
 		if(firstLetter == lastOfLastWord || lastOfLastWord == '?') {
 			boolean validWord = checkDictionary(playedWord, replyMessage);
 			if(validWord) {

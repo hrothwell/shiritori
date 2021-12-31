@@ -7,7 +7,7 @@ var subscriptions = new Map(); //all stomp subscriptions key=topic endpoint valu
 var MD5 = new Hashes.MD5();
 $(document).ready(function(){
 	//start in random room
-	var roomId = Math.floor(Math.random() * 100).toString(); //testing with having multiple rooms (random num means every user is in their own room most likely)
+	var roomId = "lobby"; //drop everyone here to start
 	connect(roomId);
 	
 	//form is being submitted or something with button, disable it
@@ -15,10 +15,6 @@ $(document).ready(function(){
         e.preventDefault();
     });
 
-	$("#send").on("click", function(){
-		sendMessage();
-	});
-	
 	$("#subscribe").click(function(){
 		subscribeTo();
 	});
@@ -28,13 +24,16 @@ function connect(room){
 	if(stompClient){
 		stompClient.disconnect();//disconnect client from server if it already exists
 	}
-	var socket = new SockJS('/gs-guide-websocket'); //thing defined in controller for SockJS
+	var socket = new SockJS('/main-websocket'); //thing defined in controller for SockJS
 	stompClient = Stomp.over(socket); //will this auto disconnect from current socket? 
 	
 	//TODO add an "onError" and "onClose" for client
 	stompClient.connect({}, function(frame){
 		console.log("Connect frame: " + frame);
 		subscribeTo(room);
+	},
+	function(frame){
+		alert("Error: " + frame);
 	});
 }
 
@@ -47,27 +46,38 @@ function subscribeTo(room){
 		url = "/topic/" + userRoom;
 		room = userRoom;
 	}
+	
+	if(!room.match(/^[a-zA-Z0-9]+$/)){
+		alert("Please only use alphanumerics, or you will end up nowhere");
+		return;
+	}
 	roomMD5 = MD5.hex(room);
 	
 	if(subscriptions.has(room)){
-		alert("You are already subscribed to that room");
+		alert("You are already in that room");
 		return;
 	}
 	
 	var userMessageRoomBox = `${roomMD5}UserMessage`;
+	var serverMessageBox = `${roomMD5}serverMessages`;
 	
 	//TODO Something here can error out when they send bad room name, server sends error but div is still made 
 	var newSub = stompClient.subscribe(url, function(reply){
-		handleMessage(JSON.parse(reply.body).userName + ": " + JSON.parse(reply.body).message, userMessageRoomBox);
+		handleMessage(JSON.parse(reply.body).userName + ": " + JSON.parse(reply.body).message, serverMessageBox);
 	});
 	
 	if(!document.getElementById(roomMD5)){
 		//Manually build the input for the new room
-		$("#messageBox").append(`<div id=${roomMD5} style="border-style:double;">
-			<b>Subscribed to ${room}</b>
-			<button id="${roomMD5}UnsubscribeButton">Disconnect</button>
+		$("#messageBox").append(`<div id=${roomMD5} class="generalMessages">
+			<div>
+				<b>${room}</b>
+				<button id="${roomMD5}UnsubscribeButton">Exit</button>
+			</div>
 			<br/>
-			<input id="${userMessageRoomBox}" type="text"/>`);
+			<div id="${serverMessageBox}" class="serverMessageBox"></div>
+			<div class="userMessageBox">
+				<input id="${userMessageRoomBox}" type="text" class="messageText" placeholder="..."/>
+			</div>`);
 		//When user hits enter, send message
 		$(`#${userMessageRoomBox}`).keypress(function(key){
 			if(key.which === 13){
@@ -83,6 +93,7 @@ function subscribeTo(room){
 		$(`#${userMessageRoomBox}`).append(`<br/><b>Reconnected to ${room}<b/>`);
 	}
 	subscriptions.set(room, newSub);
+	uiSetup();//todo move this somewhere else? lives in shiritori.js
 }
 
 function unsubscribeFrom(room){
@@ -93,7 +104,6 @@ function unsubscribeFrom(room){
 		subscriptions.delete(room);
 	}
 	alert("removed from " + room);
-	disconnectMessage(room);//send one last message to all users still in the room. TODO: could this be done from the server instead? 
 	$(`#${roomMD5}`).remove(); //get rid of everything associated with the room. if this stays here they can still send messages, they just wont see anything
 }
 
@@ -105,7 +115,9 @@ function handleMessage(serverMessage, messageBoxId){
 	var timeStamp = new Date().toTimeString().split(" ")[0];
 	if(document.getElementById(messageBoxId)){
 		
-		$(`#${messageBoxId}`).before(`<span>${timeStamp} - ${serverMessage}</span><br/>`);
+		$(`#${messageBoxId}`).append(`<span class="messageText">${timeStamp} ${serverMessage}</span><br/>`);
+		var d = $(`#${messageBoxId}`);
+		d.scrollTop(d.prop("scrollHeight"));
 	}
 	else{
 		//TODO don't alert them
@@ -121,13 +133,4 @@ function sendMessage(domTextInput, destinationRoom){
 	//we need to prepend /app so it looks for our annotated server method? 
 	stompClient.send("/app/" + destinationRoom, {}, JSON.stringify(messageObject));
 	domTextInput.value = "";
-}
-
-//when user disconnect from room, send this
-function disconnectMessage(room){
-	var messageObject = {
-		userName: $("#name").val(),
-		message: "DISCONNECTED"
-	}
-	stompClient.send("/app/" + room, {}, JSON.stringify(messageObject));
 }
