@@ -12,7 +12,8 @@ Primarily a personal project and a means to experiment working with web sockets,
 2. In terminal/CMD/PowerShell/etc, navigate to root project folder
 3. Run `./gradlew build` 
 4. a new .war file should be generated in {root}/build/libs, copy this file
-5. Navigate to local Tomcat folder, paste .war file in webapps folder (rename .war if desired)
-6. In terminal/CMD/PowerShell/etc, navigate to Tomcat bin folder
-7. run `.\catalina.bat start` to start server
-8. If start successful, server is now running at `localhost:8080/{warFileName}/`
+5. Navigate to local Tomcat folder, paste .war file in webapps folder
+6. Rename war to `ROOT.war` and delete any old "ROOT" references in webapps folder (ROOT.war, ROOT folder, etc)
+7. In terminal/CMD/PowerShell/etc, navigate to Tomcat bin folder
+8. run `.\catalina.bat start` to start server
+9. If start successful, server is now running at `localhost:8080/`
