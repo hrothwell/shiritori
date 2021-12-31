@@ -4,13 +4,14 @@
 </head>
 <body>
 	<div id="webSocketMessages" class="colFlex" th:fragment="webSocketClient">
+		<h3 style="text-align: center">Just chatting...</h3>
 		<form>
-			<label for="room">Room Name: </label>
-			<input type="text" id="room"/>
-			<button id="subscribe">Subscribe</button>
-			<br/>
-			<label for="name">Alias: </label>
-			<input type="text" id="name"/>
+			<label for="room">Chat room: </label>
+			<input type="text" class="userInput" id="room" placeholder="room..."/>
+			<div id="connectButtonDiv">
+				<button id="subscribe">Connect</button>
+			</div>
+			
 			<br/>
 		</form>
 		

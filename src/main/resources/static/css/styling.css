@@ -5,7 +5,7 @@ body{
 	background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
 	height: 100vh;
 	color: white; 
-	font: 1.3rem Inconsolata, monospace;
+	font: 1.3rem Inconsolata, monospace; 
 }
 
 h1.pageTitle{
@@ -42,8 +42,33 @@ div.generalMessages {
 	padding: 10px;
 }
 
+/* buttons within chat boxes */
+.generalMessages button{
+	position: absolute;
+	right: 10px;
+	background-color: transparent;
+	font: 1.3rem Inconsolata, monospace;
+	transition-duration: 0.2s;
+	color: #2EF92B;
+	border: none;
+}
+.generalMessages button:hover{
+	background-color: dimgray;
+}
+
+/* buttons within chat boxes */
+button{
+	background-color: transparent;
+	font: 1.3rem Inconsolata, monospace;
+	transition-duration: 0.2s;
+	color: #2EF92B;
+	border: none;
+}
+button:hover{
+	background-color: dimgray;
+}
+
 .serverMessageBox{
-	overflow-x: wrap;
 	overflow-y: scroll;
 	word-break:break-word;
 	flex: 1; /*not sure?*/
@@ -78,6 +103,13 @@ input[type=text].userName{
 	color: #2EF92B;
 }
 
+input[type=text].userInput{
+	outline: none;
+	border: none;
+	background-color: transparent;
+	color: #2EF92B;
+}
+
 /* scrollbars */
 /* width */
 ::-webkit-scrollbar {
@@ -97,4 +129,15 @@ input[type=text].userName{
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: gray; 
+}
+
+::selection{
+	background: black;
+	color: #2EF92B;
+}
+
+/* inverse of rest of site since chat box is black */
+.serverMessageBox *::selection{
+	background: #2EF92B;
+	color: black;
 }

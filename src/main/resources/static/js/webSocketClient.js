@@ -54,7 +54,7 @@ function subscribeTo(room){
 	roomMD5 = MD5.hex(room);
 	
 	if(subscriptions.has(room)){
-		alert("You are already subscribed to that room");
+		alert("You are already in to that room");
 		return;
 	}
 	
@@ -71,12 +71,12 @@ function subscribeTo(room){
 		$("#messageBox").append(`<div id=${roomMD5} class="generalMessages">
 			<div>
 				<b>${room}</b>
-				<button id="${roomMD5}UnsubscribeButton">Disconnect</button>
+				<button id="${roomMD5}UnsubscribeButton">Exit</button>
 			</div>
 			<br/>
 			<div id="${serverMessageBox}" class="serverMessageBox"></div>
 			<div class="userMessageBox">
-				<input id="${userMessageRoomBox}" type="text" placeholder="message"/>
+				<input id="${userMessageRoomBox}" type="text" class="messageText" placeholder="..."/>
 			</div>`);
 		//When user hits enter, send message
 		$(`#${userMessageRoomBox}`).keypress(function(key){
@@ -115,7 +115,7 @@ function handleMessage(serverMessage, messageBoxId){
 	var timeStamp = new Date().toTimeString().split(" ")[0];
 	if(document.getElementById(messageBoxId)){
 		
-		$(`#${messageBoxId}`).append(`<span>${timeStamp} - ${serverMessage}</span><br/>`);
+		$(`#${messageBoxId}`).append(`<span class="messageText">${timeStamp} ${serverMessage}</span><br/>`);
 		var d = $(`#${messageBoxId}`);
 		d.scrollTop(d.prop("scrollHeight"));
 	}

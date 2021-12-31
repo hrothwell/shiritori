@@ -7,12 +7,17 @@
 <body>
 	
 	<div th:fragment="createAndJoinGame">
+		<h3 style="align-self: center; text-align: center;">Play Shiritori</h3>
 		<label for="createOrJoinGameName">Game room name: </label>
-		<input type="text" id="createOrJoinGameName"/>
+		<input type="text" class="userInput" id="createOrJoinGameName" placeholder="name..."/>
 		<label for="createOrJoinGamePassword">Game room password: </label>
-		<input type="text" id="createOrJoinGamePassword"/>
-		<button id="createGameButton">Create</button>
-		<button id="joinGameButton">Join</button>
+		<input type="text" class="userInput" id="createOrJoinGamePassword" placeholder="password..."/>
+		<!-- TODO: add a button to "find" games. This will show all games and allow them to join -->
+		<div style="text-align: center;" id="joinCreateButtonDiv">
+			<button id="createGameButton">Create</button>
+			<button id="joinGameButton">Join</button>
+		</div>
+		
 	</div>
 	
 </body>

@@ -121,7 +121,7 @@ function subToShiritoriGame(gameName){
 function handleShiritoriMessage(messageObject){
 	var builtMessage = messageObject.userName + ": " + messageObject.message;
 	var timeStamp = new Date().toTimeString().split(" ")[0];
-	$("#shiritoriGameMessages").append(`<span>${timeStamp} - ${builtMessage}</span><br/>`);
+	$("#shiritoriGameMessages").append(`<span class="messageText">${timeStamp} ${builtMessage}</span><br/>`);
 	var d = $("#shiritoriGameMessages");
 	d.scrollTop(d.prop("scrollHeight"));
 }
@@ -145,5 +145,5 @@ function sendShiritoriMessage(){
 function uiSetup(){
 	$(".generalMessages").resizable();
 	//TODO make text also highlightable? 
-	$(".generalMessages").draggable();
+	$(".generalMessages").draggable({cancel: ".messageText"});
 }

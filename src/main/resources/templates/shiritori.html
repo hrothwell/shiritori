@@ -5,19 +5,19 @@
 <body>
 	<div id="shiritori" th:fragment="shiritori">
 		<!-- Header with game room name -->
-		<h1 id="gameNameHeader">Game name: <span id="gameName" th:text="${game.gameName}"></span></h1>
-		<h2 id="gamePasswordHeader">Game password: <span id="gamePassword" th:text="${game.gamePassword}"></span></h2>
+		<h1 id="gameNameHeader" style="text-align: center;">Game name: <span id="gameName" th:text="${game.gameName}"></span></h1>
+		<h2 id="gamePasswordHeader" style="text-align: center;">Game password: <span id="gamePassword" th:text="${game.gamePassword}"></span></h2>
 		<!-- TODO style to remove the box around this -->
-		<h2 id="userNameHeader">Your alias is: <input id="userName" class="userName" type="text" th:value="${userName}"/></h2>
-		<!--  TODO: let user pick their color?  -->
-		<input type="text" id="colorPicker"/>
+		<div>
+			<h3 id="userNameHeader">Your alias is: <input id="userName" class="userName" type="text" th:value="${userName}" placeholder="Alias..."/></h3>
+		</div>
 		<div id="shiritoriMessages" class="generalMessages">
 		<!-- box of messages -->
 			<div id="shiritoriGameMessages" class="serverMessageBox">
 				<!-- messages from the game -->
 			</div>
 			<div id="shiritoriUserTextDiv" class="userMessageBox">
-				<input id="shiritoriUserMessageBox" type="text" placeholder="type here"/>
+				<input id="shiritoriUserMessageBox" type="text" class="messageText" placeholder="..."/>
 			</div>
 		</div>
 		

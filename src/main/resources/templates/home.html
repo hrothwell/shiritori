@@ -5,6 +5,10 @@
 <body>
 	<div id="homePage" class="homeFlex">
 		<h1 class="pageTitle">The Den</h1>
+		<div id="welcomAlias">
+			Welcome, <input type="text" id="name" style="width: 25%" class="userInput" placeholder="alias..."/>
+		</div>
+		
 		<div th:insert="fragments/shiritoriFragments :: createAndJoinGame"></div>
 		<div th:insert="fragments/webSocketClient :: webSocketClient"></div>
 	</div>
