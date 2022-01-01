@@ -28,8 +28,8 @@ public class ShiritoriErrorController implements ErrorController{
 	 * @return
 	 */
 	@RequestMapping("/error")
-	public String handleError(HttpServletRequest r, Model model) {
-		log.error("Error is being handled by handleError");
+	public String handleError(HttpServletRequest r, Exception e, Model model) {
+		log.error("Error is being handled by handleError: {}", e);
 		Object status = r.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 		String statusCode = status != null ? status.toString() : "Unknown";
 		model.addAttribute("httpStatusCode", statusCode);
@@ -37,6 +37,12 @@ public class ShiritoriErrorController implements ErrorController{
 		return "error.html";
 	}
 	
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public String handleException(HttpServletRequest r, Exception e) {
+		log.error("Exception being handled by default exception handler: {}", e);
+		return "error.html";
+	}
 	/**
 	 * Error that is thrown when a user tries to join a room but the game doesn't exist or user's password is incorrect.
 	 * We want the user to remain on the page when this happens, the messgae returned is displayed to them in an alert window
