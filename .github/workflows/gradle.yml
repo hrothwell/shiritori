@@ -15,8 +15,6 @@ on:
 
 jobs:
   build:
-    env:
-      PATH: /
     runs-on: ubuntu-latest
 
     steps:
