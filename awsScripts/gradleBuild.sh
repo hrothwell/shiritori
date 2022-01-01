@@ -1,2 +1,4 @@
 # runs the gradle build command
-sudo ./gradlew build
+echo "starting gradleBuild.sh"
+pwd
+sudo /home/ec2-user/theratden/gradlew build

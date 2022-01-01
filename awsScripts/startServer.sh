@@ -1,2 +1,3 @@
 # start the server
-java -jar ./build/libs/shiritori.jar
+echo "starting server"
+java -jar /home/ec2-user/theratden/build/libs/shiritori.jar
