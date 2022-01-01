@@ -95,7 +95,7 @@ public class ShiritoriGameCreateAndJoin {
 	@GetMapping("/shiritori/findGames")
 	public String findShiritoriGames(Model model) {
 		model.addAttribute("shiritoriGames", shiritoriGames);
-		return "/fragments/shiritoriFragments.html :: findGames";
+		return "fragments/shiritoriFragments.html :: findGames";
 	}
 	
 	//manages removing inactive games
