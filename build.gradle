@@ -2,7 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'//This handles the transitive dependencies?
 	id 'java'
-	id 'war'
+	//id 'war'
 }
 
 group = 'com.hrothwell.shiritori'
@@ -20,7 +20,7 @@ dependencies {
 	implementation 'org.apache.logging.log4j:log4j-api:2.17.0'
 	implementation 'org.apache.logging.log4j:log4j-core:2.17.0'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+//	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	
 	//Web sockets. TODO where do these live? Where are they in project? Why not just import script tags? 
