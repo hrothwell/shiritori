@@ -9,6 +9,10 @@ group = 'com.hrothwell.shiritori'
 version = '0.0.2-SNAPSHOT'
 sourceCompatibility = '11'
 
+jar{
+	archiveName = 'shiritori'
+}
+
 repositories {
 	mavenCentral()
 }
