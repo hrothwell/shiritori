@@ -46,8 +46,9 @@ public class ShiritoriGameLogic {
 		g.setTimeLastActive(new Date()); 
 		StringBuilder replyMessage = new StringBuilder();
 		
+		playedWord = playedWord.toLowerCase();
 		char firstLetter = playedWord.charAt(0);
-		char lastOfLastWord = g.getLastKnownWord().charAt(g.getLastKnownWord().length()-1);
+		char lastOfLastWord = g.getLastKnownWord().toLowerCase().charAt(g.getLastKnownWord().length()-1);
 		
 		if(firstLetter == lastOfLastWord || lastOfLastWord == '?') {
 			boolean validWord = checkDictionary(playedWord, replyMessage);
