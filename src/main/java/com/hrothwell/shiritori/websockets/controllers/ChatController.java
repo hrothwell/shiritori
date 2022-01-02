@@ -1,5 +1,6 @@
 package com.hrothwell.shiritori.websockets.controllers;
 
+import org.owasp.encoder.Encode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,6 @@ public class ChatController {
 		if(m.getUserName().equalsIgnoreCase(AdminConstants.UserName.getValue())) {
 			m.setUserName("I See You... ");
 		}
-		Thread.sleep(100); 
 		return m;
 	}
 	
