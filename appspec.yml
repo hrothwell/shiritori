@@ -100,7 +100,7 @@ hooks:
 # During the ApplicationStart deployment lifecycle event, run the commands 
 #   in the script specified in "location".
   ApplicationStart:
-    - location: /awsScripts/startServer.sh  
+    - location: /awsScripts/startServer.sh
       runas: root
 # During the ValidateService deployment lifecycle event, run the commands 
 #   in the script specified in "location".
