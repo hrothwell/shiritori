@@ -2,7 +2,7 @@
 <configuration>
 
     <property name="LOGS" value="./logs" />
-
+	<timestamp key="startTimeStamp" datePattern="yyyy-MM-dd'_'HH-mm-ss.SSS"/>
     <appender name="Console"
         class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -14,7 +14,7 @@
 
     <appender name="RollingFile"
         class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOGS}/spring-boot-logger.log</file>
+        <file>${LOGS}/spring-boot-logger-${startTimeStamp}.log</file>
         <encoder
             class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
