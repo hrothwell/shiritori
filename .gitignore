@@ -75,4 +75,4 @@ out/
 .vscode/
 
 # Log files in source
-./logs/
+.logs/
