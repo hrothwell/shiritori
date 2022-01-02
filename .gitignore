@@ -76,3 +76,5 @@ out/
 
 # Log files in source
 .logs/
+/logs/*
+logs/
