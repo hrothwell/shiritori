@@ -9,3 +9,4 @@ sudo ./gradlew clean -x test build
 if [ "$?" != "0" ]; then 
 	echo "error building jar"
 	exit 1
+fi 
