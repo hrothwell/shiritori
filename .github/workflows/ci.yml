@@ -39,10 +39,10 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
     - name: Deploy via CodeDeploy
-        id: deploy
-        run: | 
-          aws deploy create-deployment \
-            --application-name theratden \
-            --deployment-group-name development_group \
-            --deployment-config-name CodeDeployDefault.OneAtATime \
-            --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
+      id: deploy
+      run: | 
+        aws deploy create-deployment \
+          --application-name theratden \
+          --deployment-group-name development_group \
+          --deployment-config-name CodeDeployDefault.OneAtATime \
+          --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
