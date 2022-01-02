@@ -9,8 +9,8 @@ group = 'com.hrothwell.shiritori'
 version = '0.0.2-SNAPSHOT'
 sourceCompatibility = '11'
 
-jar{
-	archiveName = 'shiritori'
+bootJar{
+	archiveName = 'shiritori.jar'
 }
 
 repositories {
@@ -24,9 +24,9 @@ dependencies {
 	implementation 'org.apache.logging.log4j:log4j-api:2.17.0'
 	implementation 'org.apache.logging.log4j:log4j-core:2.17.0'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-//	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	
+	implementation 'org.owasp.encoder:encoder:1.2.3'
+	implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20211018.2'
 	//Web sockets. TODO where do these live? Where are they in project? Why not just import script tags? 
 	implementation 'org.webjars:webjars-locator-core'
 	implementation 'org.webjars:sockjs-client:1.0.2'
@@ -35,6 +35,7 @@ dependencies {
 	implementation 'org.webjars:bootstrap:3.3.7'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 }
+
 
 test {
 	useJUnitPlatform()

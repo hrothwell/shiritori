@@ -21,6 +21,7 @@ public class ShiritoriController {
 	@Autowired
 	private ShiritoriGameLogic shiritoriGameLogic;
 	
+	
 	@Autowired
 	private SimpMessagingTemplate simpMessagingTemplate;
 	
@@ -33,7 +34,6 @@ public class ShiritoriController {
 		String validWord = shiritoriGameLogic.validateWord(m, room);
 		
 		BasicMessage reply = new BasicMessage(AdminConstants.UserName.getValue(), validWord);
-		
 		return reply;
 	}
 }

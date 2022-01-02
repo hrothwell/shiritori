@@ -1,5 +1,7 @@
 package com.hrothwell.shiritori.websockets.messages;
 
+import org.owasp.encoder.Encode;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ShiritoriMessage extends BasicMessage {
@@ -15,7 +17,7 @@ public class ShiritoriMessage extends BasicMessage {
 	}
 
 	public void setGameName(String gameName) {
-		this.gameName = gameName;
+		this.gameName = Encode.forHtml(gameName);
 	}
 	
 }
