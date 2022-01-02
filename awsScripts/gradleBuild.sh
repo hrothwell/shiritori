@@ -3,4 +3,5 @@ echo "starting gradleBuild.sh"
 cd /home/ec2-user/theratden
 pwd
 sudo ./gradlew --stop
-sudo ./gradlew build
+#Test should not be needed, tests are ran during github actions's build step 
+sudo ./gradlew -x test build
