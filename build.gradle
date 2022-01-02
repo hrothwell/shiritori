@@ -18,8 +18,9 @@ repositories {
 }
 
 dependencies {
+
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation ('org.springframework.boot:spring-boot-starter-web')
 	implementation 'org.springframework.session:spring-session-core'
 	implementation 'org.apache.logging.log4j:log4j-api:2.17.0'
 	implementation 'org.apache.logging.log4j:log4j-core:2.17.0'
@@ -27,6 +28,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.owasp.encoder:encoder:1.2.3'
 	implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20211018.2'
+	
 	//Web sockets. TODO where do these live? Where are they in project? Why not just import script tags? 
 	implementation 'org.webjars:webjars-locator-core'
 	implementation 'org.webjars:sockjs-client:1.0.2'
