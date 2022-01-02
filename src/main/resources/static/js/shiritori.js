@@ -47,7 +47,7 @@ function createGame(){
 }
 
 function joinGame(joinGameButton){
-	var joinGameName;
+	var joinGameName = ""; 
 	var joinGamePassword = "";
 	var userName = "";
 	//if button object passed in, should have the info we need
@@ -65,6 +65,10 @@ function joinGame(joinGameButton){
 		userName = $("#name").val();
 	}
 	
+	if(joinGameName.trim() === ""){
+		alert("name should not be empty");
+		return;
+	}
 	
 	var baseUrl = window.location.origin; //todo test what this returns
 	var joinUrl = new URL(`/shiritori/joinGame/${joinGameName}`, baseUrl);
