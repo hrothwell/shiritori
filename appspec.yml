@@ -95,7 +95,7 @@ hooks:
 #   in the script specified in "location".
   AfterInstall:
     - location: /awsScripts/gradleBuild.sh
-      timeout: 10000
+      timeout: 480
       runas: root
 # During the ApplicationStart deployment lifecycle event, run the commands 
 #   in the script specified in "location".
