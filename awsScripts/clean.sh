@@ -6,7 +6,7 @@ SHIRITORI_SERVICES=$(ps -ef | grep shiritori | grep -v grep | awk '{print $2}')
 if [ "$SHIRITORI_SERVICES" != "" ]; then
 	echo "killing shiritori services already running"
 	echo "$SHIRITORI_SERVICES"
-	sudo kill -9 "$SHIRITORI_SERVICES"
+	sudo kill -9 $SHIRITORI_SERVICES
 fi
 
 if [ "$?" != "0" ]; then 
