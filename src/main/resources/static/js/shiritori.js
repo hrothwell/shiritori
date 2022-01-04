@@ -190,4 +190,9 @@ function uiSetup(){
 	$(".generalMessages").resizable();
 	//TODO make text also highlightable? 
 	$(".generalMessages").draggable({cancel: ".messageText"});
+	//set an onclick for all the boxes to basically move all others down and bring this one to top
+	$(".generalMessages").click(function(){
+		$(".generalMessages").css("z-index", "0");
+		$(this).css("z-index", "1");
+	})
 }
