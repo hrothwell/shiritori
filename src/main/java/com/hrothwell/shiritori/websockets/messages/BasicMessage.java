@@ -9,6 +9,7 @@ public class BasicMessage {
 	
 	private String userName;
 	private String message;
+	private String hexColor;
 	
 	public BasicMessage() {
 		//empty for Jackson serialization
@@ -17,6 +18,11 @@ public class BasicMessage {
 	public BasicMessage(String userName, String message) {
 		this.setUserName(userName);
 		this.setMessage(message);
+	}
+	public BasicMessage(String userName, String message, String hexColor) {
+		this.setUserName(userName);
+		this.setMessage(message);
+		this.setHexColor(hexColor);
 	}
 	
 	public String getUserName() {
@@ -30,6 +36,14 @@ public class BasicMessage {
 	}
 	public void setMessage(String message) {
 		this.message = Encode.forHtml(message);
+	}
+	
+	public String getHexColor() {
+		return hexColor;
+	}
+
+	public void setHexColor(String hexColor) {
+		this.hexColor = Encode.forHtml(hexColor);;
 	}
 	
 }

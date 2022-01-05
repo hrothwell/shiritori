@@ -33,7 +33,7 @@ public class ShiritoriController {
 		
 		String validWord = shiritoriGameLogic.validateWord(m, room);
 		
-		BasicMessage reply = new BasicMessage(AdminConstants.UserName.getValue(), validWord);
+		BasicMessage reply = new BasicMessage(AdminConstants.UserName.getValue(), validWord, AdminConstants.AdminColor.getValue());
 		return reply;
 	}
 }
