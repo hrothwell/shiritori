@@ -165,7 +165,13 @@ function subToShiritoriGame(gameName){
 function handleShiritoriMessage(messageObject){
 	var builtMessage = messageObject.userName + ": " + messageObject.message;
 	var timeStamp = new Date().toTimeString().split(" ")[0];
-	$("#shiritoriGameMessages").append(`<span class="messageText">${timeStamp} ${builtMessage}</span><br/>`);
+	var hexColor = "";
+	var style;
+	if(messageObject.hexColor){
+		hexColor = messageObject.hexColor;
+		style = `style="color:${hexColor}"`;
+	}
+	$("#shiritoriGameMessages").append(`<span class="messageText" ${style}">${timeStamp} ${builtMessage}</span><br/>`);
 	var d = $("#shiritoriGameMessages");
 	d.scrollTop(d.prop("scrollHeight"));
 }
@@ -190,4 +196,9 @@ function uiSetup(){
 	$(".generalMessages").resizable();
 	//TODO make text also highlightable? 
 	$(".generalMessages").draggable({cancel: ".messageText"});
+	//set an onclick for all the boxes to basically move all others down and bring this one to top
+	$(".generalMessages").click(function(){
+		$(".generalMessages").css("z-index", "0");
+		$(this).css("z-index", "1");
+	})
 }

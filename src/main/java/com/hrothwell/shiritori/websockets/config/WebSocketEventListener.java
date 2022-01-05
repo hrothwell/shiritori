@@ -35,7 +35,7 @@ public class WebSocketEventListener {
 		
 		//basically anytime a user subscribes to anything we alert the people already there
 		if(simpDestination.startsWith("/topic/")) {
-			BasicMessage m = new BasicMessage(AdminConstants.UserName.getValue(), AdminConstants.NewUserJoin.getValue());
+			BasicMessage m = new BasicMessage(AdminConstants.UserName.getValue(), AdminConstants.NewUserJoin.getValue(), AdminConstants.AdminColor.getValue());
 			template.convertAndSend(simpDestination, m);
 		}
 	}

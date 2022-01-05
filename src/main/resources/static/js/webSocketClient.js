@@ -63,7 +63,9 @@ function subscribeTo(room){
 	
 	//TODO Something here can error out when they send bad room name, server sends error but div is still made 
 	var newSub = stompClient.subscribe(url, function(reply){
-		handleMessage(JSON.parse(reply.body).userName + ": " + JSON.parse(reply.body).message, serverMessageBox);
+		//TODO add color from server here and use that to make users message colorful
+		var messageObject = JSON.parse(reply.body);
+		handleMessage(messageObject, serverMessageBox);
 	});
 	
 	if(!document.getElementById(roomMD5)){
@@ -108,14 +110,19 @@ function unsubscribeFrom(room){
 }
 
 //print message to client's chat "room" 
-function handleMessage(serverMessage, messageBoxId){
+function handleMessage(messageObject, messageBoxId){
+	var serverMessage = messageObject.userName + ": " + messageObject.message;
+	var style;
+	if(messageObject.hexColor){
+		style = `style="color:${messageObject.hexColor}"`;
+	}
 	//TODO This would probably be a good place to use like Vue/React? Can talk to Jeet
 	//Want to also add buttons and onclicks within these divs we are making
 	//change the "message" box to be within this box (the message they send I mean) + get rid of "send message" button and instead just send on keypress for enter
 	var timeStamp = new Date().toTimeString().split(" ")[0];
 	if(document.getElementById(messageBoxId)){
-		
-		$(`#${messageBoxId}`).append(`<span class="messageText">${timeStamp} ${serverMessage}</span><br/>`);
+		//TODO add color text here?
+		$(`#${messageBoxId}`).append(`<span class="messageText" ${style}>${timeStamp} ${serverMessage}</span><br/>`);
 		var d = $(`#${messageBoxId}`);
 		d.scrollTop(d.prop("scrollHeight"));
 	}

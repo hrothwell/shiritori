@@ -6,7 +6,8 @@ package com.hrothwell.shiritori.enums;
  */
 public enum AdminConstants {
 	UserName("Admin"),
-	NewUserJoin("New user has joined the room");
+	NewUserJoin("New user has joined the room"),
+	AdminColor("#eb5af2");//admin user color in chat
 	
 	private String value;
 	

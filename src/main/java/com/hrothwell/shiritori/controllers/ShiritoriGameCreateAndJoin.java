@@ -114,7 +114,7 @@ public class ShiritoriGameCreateAndJoin {
              if(TimeUnit.MILLISECONDS.toMinutes(elapsedTime) > 5) {
             	 log.info("Inactive game found: {}", entry.getKey());
             	 itr.remove();
-            	 template.convertAndSend("/topic/shiritori/" + entry.getKey(), new BasicMessage(AdminConstants.UserName.name(), "Closing game due to inactivity"));
+            	 template.convertAndSend("/topic/shiritori/" + entry.getKey(), new BasicMessage(AdminConstants.UserName.getValue(), "Closing game due to inactivity", AdminConstants.AdminColor.getValue()));
              }
              else {
             	 log.info("Game: {} - Active", entry.getKey());
