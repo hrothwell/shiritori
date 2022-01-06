@@ -134,7 +134,8 @@ function handleMessage(messageObject, messageBoxId){
 function sendMessage(domTextInput, destinationRoom){
 	var messageObject = {
 		userName: $("#name").val(),
-		message: domTextInput.value
+		message: domTextInput.value,
+		hexColor: $("#htmlColorPicker").val()
 	}
 	//we need to prepend /app so it looks for our annotated server method? 
 	stompClient.send("/app/" + destinationRoom, {}, JSON.stringify(messageObject));

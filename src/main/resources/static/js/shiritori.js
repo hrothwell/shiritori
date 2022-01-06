@@ -185,7 +185,8 @@ function sendShiritoriMessage(){
 	var m = {
 		userName: $("#userName").val(),
 		message: input.val(),
-		gameName: shiritoriGameName
+		gameName: shiritoriGameName,
+		hexColor: $("#shiritoriColorPicker").val()
 	}
 	//TODO is there really any way to prevent them from sending to a game they are not a part of? 
 	stompClient.send(`/app/shiritori/${shiritoriGameName}`, {}, JSON.stringify(m));
@@ -200,5 +201,5 @@ function uiSetup(){
 	$(".generalMessages").click(function(){
 		$(".generalMessages").css("z-index", "0");
 		$(this).css("z-index", "1");
-	})
+	});
 }

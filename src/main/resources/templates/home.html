@@ -7,10 +7,12 @@
 		<h1 class="pageTitle">The Den</h1>
 		<div id="welcomAlias">
 			Welcome, <input type="text" id="name" style="width: 25%" class="userInput" placeholder="alias..."/>
+			<label for="colorPicker">Please, pick a color  </label><input type="color" id="htmlColorPicker" value="#2EF92B"/>
 		</div>
 		
 		<div th:insert="fragments/shiritoriFragments :: createAndJoinGame"></div>
 		<div th:insert="fragments/webSocketClient :: webSocketClient"></div>
+		
 	</div>
 </body>
 </html>

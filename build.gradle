@@ -2,11 +2,10 @@ plugins {
 	id 'org.springframework.boot' version '2.6.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'//This handles the transitive dependencies?
 	id 'java'
-	//id 'war'
 }
 
 group = 'com.hrothwell.shiritori'
-version = '0.0.2-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 sourceCompatibility = '11'
 
 bootJar{
