@@ -79,7 +79,7 @@ public class ShiritoriGameLogic {
 					//valid word
 					List<HashMap<String, Object>> definitions = (List<HashMap<String, Object>>) m.get("definitions");
 					String def = (String) definitions.get(0).get("definition");
-					message.append(word + ": " + def);
+					message.append(word + " - " + def);
 					foundValidWord = true; 
 					break;
 				}
