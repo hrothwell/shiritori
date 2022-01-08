@@ -100,18 +100,17 @@ input[type=text]{
 	color: #46fa44;
 }
 
-input[type=text].userName{
+input[type=text].userInput{
 	outline: none;
 	border: none;
 	background-color: transparent;
 	color: #2EF92B;
 }
 
-input[type=text].userInput{
-	outline: none;
-	border: none;
+input[type=color]{
 	background-color: transparent;
-	color: #2EF92B;
+	border-color: transparent;
+	cursor: pointer;
 }
 
 /* scrollbars */

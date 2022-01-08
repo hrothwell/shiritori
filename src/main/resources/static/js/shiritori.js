@@ -174,6 +174,12 @@ function handleShiritoriMessage(messageObject){
 	$("#shiritoriGameMessages").append(`<span class="messageText" ${style}">${timeStamp} ${builtMessage}</span><br/>`);
 	var d = $("#shiritoriGameMessages");
 	d.scrollTop(d.prop("scrollHeight"));
+	
+	if(messageObject.playedWords){
+		//sent when a valid word is played
+		//this is all one string with commas, could make it look better
+		$("#playedWords").html(messageObject.playedWords.sort().join(", "));
+	}
 }
 
 function sendShiritoriMessage(){

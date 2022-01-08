@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.hrothwell.shiritori.enums.AdminConstants;
 import com.hrothwell.shiritori.game.logic.ShiritoriGameLogic;
+import com.hrothwell.shiritori.websockets.messages.AdminOnlyMessage;
 import com.hrothwell.shiritori.websockets.messages.BasicMessage;
 import com.hrothwell.shiritori.websockets.messages.ShiritoriMessage;
 @Controller
@@ -31,9 +32,8 @@ public class ShiritoriController {
 		//send the current user's message to show up for everyone
 		simpMessagingTemplate.convertAndSend("/topic/shiritori/" + room, m);
 		
-		String validWord = shiritoriGameLogic.validateWord(m, room);
+		AdminOnlyMessage reply = shiritoriGameLogic.getReply(m, room);
 		
-		BasicMessage reply = new BasicMessage(AdminConstants.UserName.getValue(), validWord, AdminConstants.AdminColor.getValue());
 		return reply;
 	}
 }
