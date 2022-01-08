@@ -9,8 +9,12 @@
 		<h2 id="gamePasswordHeader" style="text-align: center;">Game password: <span id="gamePassword" th:text="${game.gamePassword}"></span></h2>
 		<!-- TODO style to remove the box around this -->
 		<div>
-			<h3 id="userNameHeader"><label for="userName">Your alias is: </label><input id="userName" class="userName" type="text" th:value="${userName}" placeholder="alias..."/></h3>
+			<h3 id="userNameHeader"><label for="userName">Your alias is: </label><input id="userName" class="userInput" type="text" th:value="${userName}" placeholder="alias..."/></h3>
 			<h3 id="colorHeader"><label for="shiritoriColorPicker">Your color is:  </label><input type="color" id="shiritoriColorPicker" value="#2EF92B"/></h3>
+		</div>
+		<div id="playedWordsContainer" class="generalMessages" style="position:relative; min-height:50px;">
+			Played Words: <br/>
+			<div id="playedWords" class="serverMessageBox"></div>
 		</div>
 		<div id="shiritoriMessages" class="generalMessages">
 		<!-- box of messages -->

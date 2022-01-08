@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.owasp.encoder.Encode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import com.hrothwell.shiritori.enums.AdminConstants;
 import com.hrothwell.shiritori.game.pojos.ShiritoriGame;
+import com.hrothwell.shiritori.websockets.messages.AdminOnlyMessage;
 import com.hrothwell.shiritori.websockets.messages.ShiritoriMessage;
 /**
  * @author hrothwell
@@ -32,18 +35,25 @@ public class ShiritoriGameLogic {
 	//TODO just make a bean and use that? 
 	private RestTemplate rest; 
 	
-	public String validateWord(ShiritoriMessage gameMessage, String room) {
+	
+	public AdminOnlyMessage getReply(ShiritoriMessage gameMessage, String room) {
+		String replyMessage = this.validateWord(gameMessage, room);
+		return new AdminOnlyMessage(replyMessage, shiritoriGames.get(room).getSeenWords());
+	}
+	
+	private String validateWord(ShiritoriMessage gameMessage, String room) {
+		ShiritoriGame g = shiritoriGames.get(room);
+		g.setTimeLastActive(new Date()); 
+		
 		if(shiritoriGames.get(room) == null) {
 			return "Game no longer exists";
 		}
-		
+		//all words sent to server should already be properly encoded for writing to HTML as we do that on setters
 		String playedWord = StringUtils.trimWhitespace(gameMessage.getMessage());
 		if(playedWord.split(" ").length > 1) {
 			return "Please play a single word";
 		}
 		
-		ShiritoriGame g = shiritoriGames.get(room);
-		g.setTimeLastActive(new Date()); 
 		StringBuilder replyMessage = new StringBuilder();
 		
 		playedWord = playedWord.toLowerCase();
@@ -54,7 +64,7 @@ public class ShiritoriGameLogic {
 			boolean validWord = checkDictionary(playedWord, replyMessage);
 			if(validWord) {
 				g.setLastKnownWord(playedWord);
-				g.getSeenWords().add(playedWord);
+				g.getSeenWords().add(playedWord); 
 				g.setLastKnownPlayer(gameMessage.getUserName()); 
 			}
 		}
@@ -78,7 +88,7 @@ public class ShiritoriGameLogic {
 				if(partOfSpeech.trim().equalsIgnoreCase("noun")) {
 					//valid word
 					List<HashMap<String, Object>> definitions = (List<HashMap<String, Object>>) m.get("definitions");
-					String def = (String) definitions.get(0).get("definition");
+					String def = Encode.forHtml((String) definitions.get(0).get("definition"));
 					message.append(word + " - " + def);
 					foundValidWord = true; 
 					break;
