@@ -9,4 +9,3 @@ This application is packaged as a "fat" jar. Tomcat should not be required to ru
 3. Locate jar file in `build/libs/shiritori.jar`
 4. Open CMD/terminal/PowerShell/etc to file location and run: `java -jar shiritori.jar` to start the server
 5. Once startup is complete, the server should be running at `localhost:80`!
-test
