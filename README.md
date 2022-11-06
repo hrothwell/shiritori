@@ -1,4 +1,4 @@
-[![CI Gradle](https://github.com/hrothwell/shiritori/actions/workflows/ci.yml/badge.svg)](https://github.com/hrothwell/shiritori/actions/workflows/ci.yml)
+
 # shiritori
 Primarily a personal project and a means to experiment working with web sockets, deploying to AWS, etc. 
 
