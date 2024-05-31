@@ -10,5 +10,6 @@ This application is packaged as a "fat" jar. Tomcat should not be required to ru
 4. Open CMD/terminal/PowerShell/etc to file location and run: `java -jar shiritori.jar` to start the server
 5. Once startup is complete, the server should be running at `localhost:80`!
 
+2024 edit - or, just do `./gradlew bootRun` lol 
 
 theratden.com decomissioned as of Nov 6th, 2022. (Free year of AWS expired)
